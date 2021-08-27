@@ -30,9 +30,10 @@ class User extends BaseController
 			return view('user\data_one', $data);
 		}
 	}
-	public function profil()
+	public function profile($param = null)
 	{
-		//
+
+		echo "<h1>Dalam perbaikan ~ $param</h1>";
 	}
 	public function activate($email)
 	{
