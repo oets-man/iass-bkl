@@ -49,27 +49,19 @@
             <hr class="sidebar-divider">
             <!-- Heading -->
             <?php
+            $email = session('user_email');
+            $nama = session('user_nama');
             $role_id = session('role_id');
-            // pindah ke filter
-            // if (is_null($role_id)) {
-            //     session()->setFlashData('errors', array('Silakan login terlebih dahulu'));
-            //     $location = base_url('auth/login');
-            //     header("location: $location");
-            //     exit;
-            // }
+
             $db = \Config\Database::connect();
-
-            //query user
-            $email = session('email');
-            $user = $db->table('user')->where('email', $email)->get()->getFirstRow();
-
             //query user_access
             $qMenuHead = $db->query(
-                "SELECT DISTINCT  user_menu.menu
-    			 FROM user_access
-	    		 INNER JOIN user_menu
-		       		ON user_access.menu_title = user_menu.title
-			     WHERE (user_access.role_id = '$role_id')"
+                "SELECT DISTINCT user_menu_view.menu
+                FROM user_access
+                INNER JOIN user_menu_view
+                    ON user_access.menu_title = user_menu_view.id
+                WHERE user_access.role_id = '$role_id'
+                ORDER BY user_menu_view.urut ASC"
             );
             $menuHead = $qMenuHead->getResult();
             foreach ($menuHead as $menu) : ?>
@@ -83,21 +75,21 @@
                 $m = $menu->menu;
                 $qMenuSub = $db->query(
                     "SELECT *
-                     FROM user_menu
+                     FROM user_menu_view
                      INNER JOIN user_access
-                        ON user_menu.title = user_access.menu_title
+                     ON user_menu_view.id = menu_title
                      WHERE
                         (
-                            user_menu.menu = '$m' AND
-                            user_access.role_id = '$role_id'
+                            menu = '$m' AND
+                            role_id = '$role_id'
                         )
-                     ORDER BY user_menu.urut ASC"
+                     ORDER BY urut ASC"
                 );
                 $menuSub = $qMenuSub->getResult();
                 ?>
 
                 <?php foreach ($menuSub as $sub) : ?>
-                    <?php $url = str_replace('@email', $user->email, $sub->url); ?>
+                    <?php $url = str_replace('@email', $email, $sub->url); ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() . "/" . $url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -144,12 +136,12 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user->nama; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $nama; ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets'); ?>/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="<?= base_url('user/profile') . '/' . $email; ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profil
                                 </a>

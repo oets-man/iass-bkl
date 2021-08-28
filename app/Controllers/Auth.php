@@ -68,6 +68,10 @@ class Auth extends BaseController
 				$userModel = new \App\Models\UserModel();
 				$user = $userModel->where('email', $email)->first();
 
+				$authModel = new \App\Models\AuthModel();
+				$role = $authModel->roleGet($user->role_id)->getRow();
+				// dd($role->id);
+
 				if ($user) {
 					//cek password
 					if ((password_verify($password, $user->password))) {
@@ -77,9 +81,13 @@ class Auth extends BaseController
 							if ($user->is_reset != 1) {
 								//berhasil login
 								$sessData = [
-									'email' => $user->email,
-									'role_id' => $user->role_id,
-									'isLoggedIn' => TRUE
+									'user_email' 	=> $user->email,		//parameter authFilter
+									'user_nama' 	=> $user->nama,
+									'user_jabatan' 	=> $user->jabatan,
+									'user_avatar' 	=> $user->avatar,
+									'role_id' 		=> $role->id,			//parameter authFilter
+									'role_level' 	=> $role->level,
+									'isLoggedIn' 	=> TRUE,				//parameter authFilter
 								];
 								$this->session->set($sessData);
 								$this->session->setFlashData('success', 'Masuk sebagai ' . $user->nama);

@@ -16,9 +16,13 @@ class AuthModel extends Model
 		$this->tabelRole = $this->db->table('user_role');
 	}
 
-	public function roleGet()
+	public function roleGet($id = null)
 	{
-		$builder = $this->tabelRole;
+		if (is_null($id)) {
+			$builder = $this->tabelRole;
+		} else {
+			$builder = $this->tabelRole->where('id', $id);
+		}
 		$query = $builder->get();
 		return $query;
 	}

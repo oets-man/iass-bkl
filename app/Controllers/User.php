@@ -30,12 +30,12 @@ class User extends BaseController
 			return view('user\data_one', $data);
 		}
 	}
-	public function profile($param = null)
+	public function profile($param)
 	{
 
 		echo "<h1>Dalam perbaikan ~ $param</h1>";
-		echo '<br><br><br>';
-		var_dump($this->userModel->where('email', 'oets@gmail.com')->get());
+		// echo '<br><br><br>';
+		// var_dump($this->userModel->where('email', 'oets@gmail.com')->get());
 	}
 	public function activate($email)
 	{

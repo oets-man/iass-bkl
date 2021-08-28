@@ -27,7 +27,7 @@ class AuthFilter implements FilterInterface
 	{
 		if (
 			!session()->has('role_id') ||
-			!session()->has('email') ||
+			!session()->has('user_email') ||
 			!session()->has('isLoggedIn')
 		) {
 			return redirect()->to(base_url('auth/login'));
