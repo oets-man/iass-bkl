@@ -42,6 +42,7 @@ class Auth extends BaseController
 		];
 		return view('auth/registrasi', $data);
 	}
+
 	private function isLoggedIn()
 	{
 		if (session()->has('isLoggedIn')) {
@@ -49,6 +50,7 @@ class Auth extends BaseController
 			return redirect()->back();
 		}
 	}
+
 	public function login()
 	{
 		$this->isLoggedIn();
@@ -108,11 +110,13 @@ class Auth extends BaseController
 		];
 		return view('auth/login', $data);
 	}
+
 	public function logout()
 	{
 		session()->destroy();
 		return redirect()->to(base_url('auth/login'));
 	}
+
 	public function reset($email = null)
 	{
 		if ($this->request->getPost()) {

@@ -36,9 +36,9 @@ class AuthModel extends Model
 	{
 		$cek = $this->tabelUser->where('email', $email)->where('is_active', 1)->countAllResults();
 		if ($cek > 0) {
-			return $this->tabelUser->set('active', 0)->where('email', $email)->update();
+			return $this->tabelUser->set('is_active', 0)->where('email', $email)->update();
 		} else {
-			return $this->tabelUser->set('active', 1)->where('email', $email)->update();
+			return $this->tabelUser->set('is_active', 1)->where('email', $email)->update();
 		}
 	}
 }

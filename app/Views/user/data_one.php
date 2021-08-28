@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <?php if ($users->getRow()->active == 1) {
+                                <?php if ($users->getRow()->is_active == 1) {
                                     $cek = "checked";
                                     $tombol = "Nonaktifkan";
                                     $btnClass = "btn btn-sm btn-danger";

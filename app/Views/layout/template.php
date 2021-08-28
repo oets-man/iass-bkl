@@ -45,21 +45,25 @@
                 <div class="sidebar-brand-text mx-3">IASS<sup> bkl</sup></div>
             </a>
 
-
-
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Heading -->
             <?php
             $role_id = session('role_id');
-            if (is_null($role_id)) {
-                session()->setFlashData('errors', array('Silakan login terlebih dahulu'));
-                $location = base_url('auth/login');
-                header("location: $location");
-                exit;
-            }
-
+            // pindah ke filter
+            // if (is_null($role_id)) {
+            //     session()->setFlashData('errors', array('Silakan login terlebih dahulu'));
+            //     $location = base_url('auth/login');
+            //     header("location: $location");
+            //     exit;
+            // }
             $db = \Config\Database::connect();
+
+            //query user
+            $email = session('email');
+            $user = $db->table('user')->where('email', $email)->get()->getFirstRow();
+
+            //query user_access
             $qMenuHead = $db->query(
                 "SELECT DISTINCT  user_menu.menu
     			 FROM user_access
@@ -75,6 +79,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <?php
+                //query user_menu
                 $m = $menu->menu;
                 $qMenuSub = $db->query(
                     "SELECT *
@@ -92,8 +97,9 @@
                 ?>
 
                 <?php foreach ($menuSub as $sub) : ?>
+                    <?php $url = str_replace('@email', $user->email, $sub->url); ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() . "/" . $sub->url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
+                        <a class="nav-link" href="<?= base_url() . "/" . $url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                             <span><?= $sub->title; ?></span></a>
                     </li>
@@ -138,7 +144,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user->nama; ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets'); ?>/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->

@@ -34,7 +34,7 @@ class User extends BaseController
 	{
 
 		echo "<h1>Dalam perbaikan ~ $param</h1>";
-
+		echo '<br><br><br>';
 		var_dump($this->userModel->where('email', 'oets@gmail.com')->get());
 	}
 	public function activate($email)
