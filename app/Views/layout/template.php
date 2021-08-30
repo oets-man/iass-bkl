@@ -27,6 +27,7 @@
     <!-- ?xxxxxxxxxxxxxxxxxxx -->
     <!-- Custom styles for this page -->
     <link href="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script src="<?= base_url('assets'); ?>/vendor/jquery/jquery.min.js"></script>
 
 </head>
 
@@ -40,7 +41,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-home"></i>
+                    <i class="fas fa-landmark"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">IASS<sup> bkl</sup></div>
             </a>
@@ -59,7 +60,7 @@
                 "SELECT DISTINCT user_menu_view.menu
                 FROM user_access
                 INNER JOIN user_menu_view
-                    ON user_access.menu_title = user_menu_view.id
+                    ON user_access.menu_id = user_menu_view.id
                 WHERE user_access.role_id = '$role_id'
                 ORDER BY user_menu_view.urut ASC"
             );
@@ -77,7 +78,7 @@
                     "SELECT *
                      FROM user_menu_view
                      INNER JOIN user_access
-                     ON user_menu_view.id = menu_title
+                     ON user_menu_view.id = menu_id
                      WHERE
                         (
                             menu = '$m' AND
@@ -89,11 +90,12 @@
                 ?>
 
                 <?php foreach ($menuSub as $sub) : ?>
-                    <?php $url = str_replace('@email', $email, $sub->url); ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() . "/" . $url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
-                            <i class="fas fa-fw fa-tachometer-alt"></i>
-                            <span><?= $sub->title; ?></span></a>
+                        <a class="nav-link" href="<?= base_url() . "/" . $sub->url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
+                            <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+                            <?= $sub->icon; ?>
+                            <span><?= $sub->title; ?></span>
+                        </a>
                     </li>
                 <?php endforeach; ?>
 
@@ -207,7 +209,6 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url('assets'); ?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?= base_url('assets'); ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -223,11 +224,34 @@
     <script src="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- custom scripts -->
-    <script>
-        $(document).ready(function() {
-            // $('#tabelUser').DataTable();
-        });
-    </script>
+
+
+    <!-- <script type="text/javascript">
+        $(function() {
+            $.ajaxSetup({
+                type: "POST",
+                url: "",
+                cache: false,
+            });
+
+
+            $("#kec_id").change(function() {
+                var value = $(this).val();
+                if (value > 0) {
+                    $.ajax({
+                        data: {
+                            modul: 'kelurahan',
+                            id: value
+                        },
+                        success: function(respond) {
+                            $("#kelurahan-desa").html(respond);
+                        }
+                    })
+                }
+            })
+
+        })
+    </script> -->
 
 </body>
 

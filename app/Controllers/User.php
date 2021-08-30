@@ -33,7 +33,8 @@ class User extends BaseController
 	public function profile($param)
 	{
 
-		echo "<h1>Dalam perbaikan ~ $param</h1>";
+		echo "<h2>Selamat Datang $param</h2>";
+		echo "<h4>Halaman ini masih dalam pengembangan</h4>";
 		// echo '<br><br><br>';
 		// var_dump($this->userModel->where('email', 'oets@gmail.com')->get());
 	}
