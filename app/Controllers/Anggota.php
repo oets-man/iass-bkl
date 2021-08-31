@@ -18,17 +18,34 @@ class Anggota extends BaseController
 	{
 		$anggotaModel = new \App\Models\AnggotaModel();
 		$anggota = $anggotaModel->getAnggota();
-		// ->join('list_kecamatan', 'anggota.kec_id=list_kecamatan.id')
-		// ->get();
+
+		$authModel = new \App\Models\AuthModel();
+		$komisariat = $authModel->komisariatGet();
 
 		$alamatModel	= new \App\Models\AlamatModel();
 		$idKab = '3526';
 		$data = [
-			'title'		=> 'Daftar Anggota',
-			'anggota'	=> $anggota,
-			'kecamatan'	=> $alamatModel->getKecamatan($idKab)
+			'title'			=> 'Daftar Anggota',
+			'anggota'		=> $anggota->getResult(),
+			'kecamatan'		=> $alamatModel->getKecamatan($idKab),
+			'komisariat'	=> $komisariat->getResult()
 		];
-		return view('anggota/data_all', $data);
+		return view('anggota/anggotaIndex', $data);
+	}
+
+	public function anggotaInsert()
+	{
+
+		$authModel = new \App\Models\AuthModel();
+		$komisariat = $authModel->komisariatGet();
+
+		$alamatModel	= new \App\Models\AlamatModel();
+		$idKab = '3526';
+		$data = [
+			'kecamatan'		=> $alamatModel->getKecamatan($idKab),
+			'komisariat'	=> $komisariat->getResult()
+		];
+		return view('anggota/anggotaInsert', $data);
 	}
 
 	public function getAlamat()

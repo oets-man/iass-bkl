@@ -24,7 +24,6 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets'); ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- ?xxxxxxxxxxxxxxxxxxx -->
     <!-- Custom styles for this page -->
     <link href="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="<?= base_url('assets'); ?>/vendor/jquery/jquery.min.js"></script>
@@ -32,6 +31,14 @@
 </head>
 
 <body id="page-top">
+
+    <!-- panggil session auth-->
+    <?php
+    $email      = session('user_email');
+    $nama       = session('user_nama');
+    $role_id    = session('role_id');
+    $role_level = session('role_level'); ?>
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -50,10 +57,6 @@
             <hr class="sidebar-divider">
             <!-- Heading -->
             <?php
-            $email = session('user_email');
-            $nama = session('user_nama');
-            $role_id = session('role_id');
-
             $db = \Config\Database::connect();
             //query user_access
             $qMenuHead = $db->query(
@@ -223,35 +226,7 @@
     <script src="<?= base_url('assets'); ?>/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- custom scripts -->
 
-
-    <!-- <script type="text/javascript">
-        $(function() {
-            $.ajaxSetup({
-                type: "POST",
-                url: "",
-                cache: false,
-            });
-
-
-            $("#kec_id").change(function() {
-                var value = $(this).val();
-                if (value > 0) {
-                    $.ajax({
-                        data: {
-                            modul: 'kelurahan',
-                            id: value
-                        },
-                        success: function(respond) {
-                            $("#kelurahan-desa").html(respond);
-                        }
-                    })
-                }
-            })
-
-        })
-    </script> -->
 
 </body>
 

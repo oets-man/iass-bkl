@@ -8,21 +8,27 @@ class AuthModel extends Model
 {
 	protected $db;
 	protected $tabelUser;
-	protected $tabelRole;
+	protected $viewRole;
 	public function __construct()
 	{
 		$this->db = db_connect();
 		$this->tabelUser = $this->db->table('user');
-		$this->tabelRole = $this->db->table('user_role');
+		$this->viewRole = $this->db->table('user_role_view');
 	}
 
 	public function roleGet($id = null)
 	{
 		if (is_null($id)) {
-			$builder = $this->tabelRole;
+			$builder = $this->viewRole;
 		} else {
-			$builder = $this->tabelRole->where('id', $id);
+			$builder = $this->viewRole->where('id', $id);
 		}
+		$query = $builder->get();
+		return $query;
+	}
+	public function komisariatGet()
+	{
+		$builder = $this->viewRole->where('level', 2)->orderBy('id');
 		$query = $builder->get();
 		return $query;
 	}

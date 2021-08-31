@@ -88,6 +88,7 @@ class Auth extends BaseController
 									'role_id' 		=> $role->id,			//parameter authFilter
 									'role_level' 	=> $role->level,
 									'isLoggedIn' 	=> TRUE,				//parameter authFilter
+									'komisariat'	=> $role->komisariat,
 								];
 								$this->session->set($sessData);
 								$this->session->setFlashData('success', 'Masuk sebagai ' . $user->nama);

@@ -26,6 +26,7 @@ class AlamatModel extends Model
 		$query	 = $builder->get();
 		return $query;
 	}
+
 	public function getDesa($id)
 	{
 		$builder = $this->tabelDesa->where('kec_id', $id)->orderBy('desa');

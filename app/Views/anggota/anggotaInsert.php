@@ -1,49 +1,3 @@
-<?= $this->extend('layout/template') ?>
-<?= $this->section('content') ?>
-<!-- <link href="<?= base_url('assets'); ?>/vendor/select2/select2.min.css" rel="stylesheet" />
-<script src="<?= base_url('assets'); ?>/vendor/select2/select2.min.js"></script> -->
-
-<!-- Page Heading -->
-
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
-            Tambah
-        </button>
-
-    </div>
-    <div class="card-body">
-        <div class="table-responsive table-hover">
-
-            <table class="table table-bordered" id="tabelUser" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>alamat</th>
-                        <th>Komisariat</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <?php foreach ($anggota->getResult() as $key => $row) : ?>
-                    <tbody>
-                        <tr>
-                            <td><?= $key + 1; ?></td>
-                            <td><?= $row->nama; ?></td>
-                            <td><a href="manage/<?= $row->desa; ?>"><?= $row->desa; ?></a> </td>
-                            <td><?= $row->kecamatan; ?></td>
-                            <td><?= $row->kabupaten; ?></td>
-                        </tr>
-                    </tbody>
-                <?php endforeach; ?>
-            </table>
-        </div>
-    </div>
-</div>
-
-
 <!-- Modal -->
 <form action="anggota/insert" method="post">
 
@@ -108,11 +62,26 @@
                         <input type="text" name="jl" class="form-control" placeholder="Jl/Gg/Dusun/Kampung/dll...">
                     </div>
 
-                    <div class="form-group">
-                        <select name="kom_id" class="form-control">
-                            <option value="">Pilih Komisariat</option>
-                        </select>
-                    </div>
+                    <?php
+                    $role_level = session('role_level');
+                    if ($role_level == 1) : ?>
+                        <div class="form-group">
+                            <select name="komisariat" class="form-control">
+                                <option value="">Pilih Komisariat</option>
+                                <?php foreach ($komisariat as $kom) : ?>
+                                    <option value="<?= $kom->komisariat; ?>"><?= $kom->komisariat; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    <?php else :
+                        $komisariat = session('komisariat'); ?>
+                        <div class="form-group row">
+                            <label for="komisariat" class="col-sm-4 col-form-label">Komisariat</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly class="form-control" id="komisariat" value="<?= $komisariat; ?>">
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                 </div>
                 <div class="modal-footer">
@@ -157,6 +126,3 @@
         });
     });
 </script>
-
-
-<?= $this->endSection(); ?>
