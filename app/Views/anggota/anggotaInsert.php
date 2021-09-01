@@ -14,7 +14,7 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap">
+                        <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" id="nama">
                     </div>
                     <div class="form-group">
                         <input type="number" name="nik" class="form-control" placeholder="NIK (Nomor Induk Kependudukan)">

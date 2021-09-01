@@ -68,6 +68,7 @@
                 ORDER BY user_menu_view.urut ASC"
             );
             $menuHead = $qMenuHead->getResult();
+
             foreach ($menuHead as $menu) : ?>
                 <div class="sidebar-heading">
                     <?= $menu->menu; ?>
@@ -176,7 +177,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-white" style="padding: 10px;">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; oets <?= date('Y'); ?></span>

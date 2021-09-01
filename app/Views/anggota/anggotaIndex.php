@@ -15,7 +15,7 @@
     <div class="card-body">
         <div class="table-responsive table-hover">
 
-            <table class="table table-bordered" id="tabelUser" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="tabel-anggota" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -32,7 +32,7 @@
                             <td><?= $row->nama; ?></td>
                             <td><?= $row->alamat1; ?></td>
                             <td><?= $row->komisariat; ?></td>
-                            <td>Aktif</td>
+                            <td><?= $row->status; ?></td>
                         </tr>
                     </tbody>
                 <?php endforeach; ?>
