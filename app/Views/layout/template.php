@@ -168,6 +168,8 @@
 
                     <!-- load content -->
                     <!-- ISI -->
+                    <?php
+                    var_dump($_SERVER); ?>
                     <?= $this->renderSection('content') ?>
 
                 </div>
