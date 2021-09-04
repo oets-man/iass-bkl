@@ -18,7 +18,7 @@
             <table class="table table-bordered" id="tabel-anggota" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Detail</th>
                         <th>No</th>
                         <th>Nama</th>
                         <th>Alamat</th>
@@ -33,18 +33,27 @@
         </div>
     </div>
 </div>
-<?php
-if (isset($komisariat)) {
-    $url_komisariat = "/" . $komisariat;
-} else {
-    $url_komisariat = null;
-};
-echo $url_komisariat;
-?>
 
 <!-- modal tambah data -->
 <?= view_cell('\App\Controllers\Anggota::AnggotaInsert'); ?>
 
+<?php
+$data = $_SERVER['PATH_INFO'];
+$getKomisariat = substr($data, stripos($data, "komisariat/")) > 0 ? true : false;
+$urlKomisariat = substr($data, stripos($data, "komisariat/") + 11);
+// $level = session('role_level');
+// var_dump(stripos($data, "komisariat/"));
+// var_dump($url_komisariat);
+// var_dump($is_komisariat);
+// var_dump($level);
+
+$sessData = [
+    'getKomisariat'    => $getKomisariat,
+    'urlKomisariat'    => $urlKomisariat,
+];
+session()->set($sessData);
+
+?>
 
 <script>
     function listDataAnggota() {
@@ -56,11 +65,10 @@ echo $url_komisariat;
                 // [5, 'asc']
             ],
             'ajax': {
-                'url': "<?= base_url('anggota/listdata') . $url_komisariat ?>",
+                'url': "<?= base_url('anggota/listdata') ?>",
                 'type': "POST",
-                'data': {
-                    'komisariat': "<?= $url_komisariat ?>"
-                },
+                'data': {},
+
             },
             'columnDefs': [{
                 'targets': [0, 1],

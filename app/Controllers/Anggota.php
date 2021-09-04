@@ -18,8 +18,9 @@ class Anggota extends BaseController
 	public function index()
 	{
 		if (session('role_level') != 1) {
-			redirect()->back();
-			exit;
+			// session()->setFlashData('errors', ['Akses Pengurus Wilayah.']);
+			$komisariat = session('komisariat');
+			redirect()->to(base_url("komisariat/$komisariat"));
 		}
 		$data = [
 			'title'			=> 'Daftar Anggota',
@@ -27,19 +28,62 @@ class Anggota extends BaseController
 		return view('anggota/anggotaIndex', $data);
 	}
 
-	public function komisariat($komisariat = null)
+	public function komisariat($param = null)
 	{
-		if (is_null($komisariat)) {
-			echo "Tentukan Komisariat di url";
-			exit;
+		$komisariat = session('komisariat');
+		if (is_null($param)) {
+			session()->setFlashData('errors', ['Tentukan Komisariat di url.']);
+			return redirect()->back();
 		}
+		$level = session('role_level');
+		$path = $_SERVER['PATH_INFO'];
+		$find = stripos($path, $komisariat);
+		if ($level != 1) {
+			if (!$find) {
+				session()->setFlashData('errors', [
+					'Akses dibatasi.',
+					"Tetap menampilkan komisarat $komisariat."
+				]);
+				return redirect()->back();
+			}
+		}
+
 		$data = [
-			'title'			=> 'Daftar Anggota',
-			'komisariat'	=> $komisariat
+			'title'			=> "Daftar Anggota / $komisariat",
 		];
 		return view('anggota/anggotaIndex', $data);
 	}
 
+	public function listdata()
+	{
+		$request = Services::request();
+		$anggotaModel = new \App\Models\AnggotaModel($request);
+		if ($request->getPost()) {
+
+			$lists = $anggotaModel->get_datatables();
+			$data = [];
+			$no = $request->getPost("start");
+			foreach ($lists as $list) {
+				$tombol = "<a href=" . base_url('anggota/detail') . "/" . $list->id . " type=\"button\" class=\"btn btn-info btn-sm\" \"><i class=\"fas fa-info-circle\"></i></a>";
+				$no++;
+				$row = [];
+				$row[] = $tombol;
+				$row[] = $no;
+				$row[] = $list->nama;
+				$row[] = $list->alamat1;
+				$row[] = $list->komisariat;
+				$row[] = $list->status;
+				$data[] = $row;
+			}
+			$output = [
+				"draw" => $request->getPost('draw'),
+				"recordsTotal" => $anggotaModel->count_all(),
+				"recordsFiltered" => $anggotaModel->count_filtered(),
+				"data" => $data
+			];
+			echo json_encode($output);
+		}
+	}
 	public function anggotaInsert()
 	{
 
@@ -72,36 +116,7 @@ class Anggota extends BaseController
 		# code...
 	}
 
-	public function listdata($komisariat = null)
-	{
-		$request = Services::request();
-		$anggotaModel = new \App\Models\AnggotaModel($request);
-		if ($request->getPost()) {
 
-			$lists = $anggotaModel->get_datatables();
-			$data = [];
-			$no = $request->getPost("start");
-			foreach ($lists as $list) {
-				$tombol = "<a href=" . base_url('anggota/detail') . "/" . $list->id . " type=\"button\" class=\"btn btn-info btn-sm\" \"><i class=\"fas fa-info-circle\"></i></a>";
-				$no++;
-				$row = [];
-				$row[] = $tombol;
-				$row[] = $no;
-				$row[] = $list->nama;
-				$row[] = $list->alamat1;
-				$row[] = $list->komisariat;
-				$row[] = $list->status;
-				$data[] = $row;
-			}
-			$output = [
-				"draw" => $request->getPost('draw'),
-				"recordsTotal" => $anggotaModel->count_all(),
-				"recordsFiltered" => $anggotaModel->count_filtered(),
-				"data" => $data
-			];
-			echo json_encode($output);
-		}
-	}
 	function Detail($id)
 	{
 		echo "<h1>Dalam Pengembangan</h1>";

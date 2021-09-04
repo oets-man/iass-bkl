@@ -25,8 +25,8 @@
     <link href="<?= base_url('assets'); ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="<?= base_url('assets'); ?>/vendor/jquery/jquery.min.js"></script>
+    <link href="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -166,10 +166,41 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- load content -->
-                    <!-- ISI -->
+                    <!-- start flashdata -->
                     <?php
-                    var_dump($_SERVER); ?>
+                    $session = session();
+                    $errors = $session->getFlashdata('errors');
+                    $success = $session->getFlashdata('success');
+                    if ($errors != null) : ?>
+                        <div class="alert alert-warning alert-dismissible fade show text-danger" role="alert">
+                            <strong>Terjadi Kesalahan!</strong>
+                            <ul class="my-0">
+                                <?php foreach ($errors as $err) : ?>
+                                    <li><?= $err ?></li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
+                    <?php
+                        unset($_SESSION['errors']);
+                    endif;
+                    if ($success != null) : ?>
+                        <div class="alert alert-success alert-dismissible fade show text-primary text-center" role="alert">
+                            <strong><?= $success; ?></strong>
+                        </div>
+                    <?php
+                        unset($_SESSION['success']);
+                    endif;
+                    ?>
+                    <!-- end flashdata -->
+
+
+                    <?php
+                    // var_dump($_SERVER['PATH_INFO']);;
+                    // var_dump(session('komisariat'));;
+                    // echo stripos('avea', 'e');
+                    ?>
+
+
                     <?= $this->renderSection('content') ?>
 
                 </div>

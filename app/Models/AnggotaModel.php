@@ -43,7 +43,7 @@ class AnggotaModel extends Model
 	protected $viewAnggota = "anggota_view";
 	protected $column_order = array(null, null,  'nama', 'alamat1', 'komisariat', 'status'); //urut sesuai dengan kolom pada view jumlah sesuai dengan <th></th>
 	protected $column_search = array('nama', 'alamat1', 'komisariat', 'status');
-	protected $order = array('id' => 'asc');
+	protected $order = array('komisariat' => 'asc', 'status' => 'asc'); //default order
 	protected $dt;
 
 
@@ -57,20 +57,40 @@ class AnggotaModel extends Model
 	// 	$query = $builder->get();
 	// 	return $query;
 	// }
-	private function filterQuery()
+
+
+
+	private function _filterQuery()
 	{
-		$level = session('role_level');
-		$komisariat = session('komisariat');
+		//session dibuat di controller/auth
+		$level 			= session('role_level');
+		$komisariat 	= session('komisariat');
+
+		//session dibuat di view/anggotaindex
+		$getKomisariat 	= session('getKomisariat');
+		$urlKomisariat 	= session('urlKomisariat');
+
 		if ($level == 1) {
-			$this->dt = $this->db->table($this->viewAnggota)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
-		} else {
-			$this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $komisariat)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
+			if ($getKomisariat == true) {
+				// $this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $urlKomisariat)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
+				$this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $urlKomisariat);
+			} else {
+				// $this->dt = $this->db->table($this->viewAnggota)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
+				$this->dt = $this->db->table($this->viewAnggota);
+			}
+		} elseif ($level == 2) {
+			// $this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $komisariat)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
+			$this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $komisariat);
 		}
+		// session()->remove('getKomisariat');
+		// session()->remove('urlKomisariat');
+
 		return $this;
 	}
+
 	private function _get_datatables_query()
 	{
-		$this->filterQuery();
+		$this->_filterQuery();
 		$i = 0;
 		foreach ($this->column_search as $item) { // loop column 
 			if (@$_POST['search']['value']) { // if datatable send POST for search
@@ -101,6 +121,7 @@ class AnggotaModel extends Model
 		$query = $this->dt->get();
 		return $query->getResult();
 	}
+
 	function count_filtered()
 	{
 		$this->_get_datatables_query();
@@ -109,28 +130,8 @@ class AnggotaModel extends Model
 
 	public function count_all()
 	{
-		// $tbl_storage = $this->filterQuery();
-		$tbl_storage = $this->db->table($this->viewAnggota);
-		return $tbl_storage->countAllResults();
-	}
-
-	function get_datatables_komisariat()
-	{
-		$this->_get_datatables_query();
-		if (@$_POST['length'] != -1)
-			$this->dt->limit(@$_POST['length'], @$_POST['start']);
-		$query = $this->dt->get();
-		return $query->getResult();
-	}
-	function count_filtered_komisariat()
-	{
-		$this->_get_datatables_query();
-		return $this->dt->countAllResults();
-	}
-
-	public function count_all_komisariat()
-	{
-		$tbl_storage = $this->db->table($this->viewAnggota);
+		$tbl_storage = $this->_filterQuery();
+		// $tbl_storage = $this->db->table($this->viewAnggota);
 		return $tbl_storage->countAllResults();
 	}
 }
