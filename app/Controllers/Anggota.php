@@ -84,19 +84,19 @@ class Anggota extends BaseController
 			echo json_encode($output);
 		}
 	}
-	public function anggotaInsert()
+	public function modalInsert()
 	{
 
-		$authModel = new \App\Models\AuthModel();
-		$komisariat = $authModel->komisariatGet();
+		// $authModel = new \App\Models\AuthModel();
+		// $komisariat = $authModel->komisariatGet();
 
-		$alamatModel	= new \App\Models\AlamatModel();
-		$idKab = '3526';
-		$data = [
-			'kecamatan'		=> $alamatModel->getKecamatan($idKab),
-			'komisariat'	=> $komisariat->getResult()
-		];
-		return view('anggota/anggotaInsert', $data);
+		// $alamatModel	= new \App\Models\AlamatModel();
+		// $idKab = '3526';
+		// $data = [
+		// 	'kecamatan'		=> $alamatModel->getKecamatan($idKab),
+		// 	'komisariat'	=> $komisariat->getResult()
+		// ];
+		// return view('anggota/anggotaInsert', $data);
 	}
 
 	public function getAlamat()
@@ -113,7 +113,55 @@ class Anggota extends BaseController
 	}
 	public function insert()
 	{
-		# code...
+		$validation = \Config\Services::validation();
+		$session = session();
+		if ($this->request->getPost()) {
+			$data = $this->request->getPost();
+			$validation->run($data, 'anggota');
+			$errors = $validation->getErrors();
+
+			if (!$errors) {
+				$anggotaEntity = new \App\Entities\AnggotaEntity();
+				$anggotaModel = new \App\Models\AnggotaModel();
+
+				$anggotaEntity->fill($data);
+				$insert = $anggotaModel->insert($anggotaEntity);
+				if ($insert) {
+					$session->setFlashdata('success', 'Tambah data anggota berhasil.');
+					return redirect()->to(base_url('anggota/index'));
+				} else {
+					$session->setFlashData('errors', [
+						'Data gagal ditambahkan.',
+						'Cek ulang data Anda.',
+						'Catatan: bebera data harus unik seperti NIK, ID IASS, dan ID PPS.'
+					]);
+					return redirect()->back()->withInput();
+				}
+			}
+
+			$session->setFlashdata('errors', $errors);
+			return redirect()->back()->withInput();
+		} else {
+			$authModel = new \App\Models\AuthModel();
+			$komisariat = $authModel->komisariatGet();
+
+			$alamatModel	= new \App\Models\AlamatModel();
+			$idKab = '3526';
+
+			$pps_kelas = $this->db->query("SELECT * FROM list_kelas")->getResult();
+			$pps_tingkat = $this->db->query("SELECT * FROM list_tingkat_pps")->getResult();
+			$formal_tingkat = $this->db->query("SELECT * FROM list_tingkat_formal")->getResult();
+
+			$data = [
+				'kecamatan'			=> $alamatModel->getKecamatan($idKab)->getResult(),
+				'kab_kota'			=> $alamatModel->getKabKota()->getResult(),
+				'komisariat'		=> $komisariat->getResult(),
+				'pps_kelas'			=> $pps_kelas,
+				'pps_tingkat' 		=> $pps_tingkat,
+				'formal_tingkat' 	=> $formal_tingkat,
+			];
+			return view('anggota/anggotaInsert', $data);
+		}
 	}
 
 

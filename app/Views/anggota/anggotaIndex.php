@@ -7,9 +7,12 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
             Tambah
-        </button>
+        </button> -->
+        <a href="<?= base_url('anggota/insert'); ?>" type="button" class="btn btn-primary">
+            Tambah
+        </a>
 
     </div>
     <div class="card-body">
@@ -35,7 +38,9 @@
 </div>
 
 <!-- modal tambah data -->
-<?= view_cell('\App\Controllers\Anggota::AnggotaInsert'); ?>
+<?php
+// echo view_cell('\App\Controllers\Anggota::insert'); 
+?>
 
 <?php
 $data = $_SERVER['PATH_INFO'];

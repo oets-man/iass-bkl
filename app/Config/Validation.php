@@ -90,4 +90,14 @@ class Validation
 		],
 
 	];
+	public $anggota = [
+		'nama' => [
+			'rules' => 'required',
+			'label' => 'Nama'
+		],
+		'komisariat' => [
+			'rules' => 'required',
+			'label' => 'Komisariat'
+		],
+	];
 }

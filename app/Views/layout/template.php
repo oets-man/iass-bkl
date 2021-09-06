@@ -208,7 +208,6 @@
 
             </div>
             <!-- End of Main Content -->
-
             <!-- Footer -->
             <footer class="sticky-footer bg-white" style="padding: 10px;">
                 <div class="container my-auto">
