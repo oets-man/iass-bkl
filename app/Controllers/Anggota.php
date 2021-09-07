@@ -111,6 +111,14 @@ class Anggota extends BaseController
 			}
 		}
 	}
+
+	// private function emptyToNull($array)
+	// {
+	// 	return array_map(function ($v) {
+	// 		return ($v === '') ? NULL : $v;
+	// 	}, $array);
+	// }
+
 	public function insert()
 	{
 		$validation = \Config\Services::validation();
@@ -119,12 +127,21 @@ class Anggota extends BaseController
 			$data = $this->request->getPost();
 			$validation->run($data, 'anggota');
 			$errors = $validation->getErrors();
+			// $ins = $this->emptyToNull($data);
+
+			// $ins = array_filter($data, function ($value) {
+			// 	return !is_null($value) && $value !== '';
+			// });
+			// $ins = array_filter($data);
+			// dd($ins);
 
 			if (!$errors) {
 				$anggotaEntity = new \App\Entities\AnggotaEntity();
 				$anggotaModel = new \App\Models\AnggotaModel();
 
+				$data = array_filter($data);
 				$anggotaEntity->fill($data);
+
 				$insert = $anggotaModel->insert($anggotaEntity);
 				if ($insert) {
 					$session->setFlashdata('success', 'Tambah data anggota berhasil.');
