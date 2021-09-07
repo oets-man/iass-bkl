@@ -16,7 +16,7 @@ class UserEntity extends Entity
 		'deleted_at',
 	];
 	protected $casts   = [];
-	public function setPassword(string $pass) // harus sama dengan field db
+	public function setPassword(string $pass) // harus sama dengan field db awali dengan set
 	{
 		$this->attributes['password'] = password_hash($pass, PASSWORD_BCRYPT);
 		return $this;

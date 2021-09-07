@@ -128,7 +128,7 @@ class Anggota extends BaseController
 				$insert = $anggotaModel->insert($anggotaEntity);
 				if ($insert) {
 					$session->setFlashdata('success', 'Tambah data anggota berhasil.');
-					return redirect()->to(base_url('anggota/index'));
+					return redirect()->back();
 				} else {
 					$session->setFlashData('errors', [
 						'Data gagal ditambahkan.',

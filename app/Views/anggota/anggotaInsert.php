@@ -118,12 +118,12 @@ echo form_open('anggota/insert'); ?>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">RT</label>
                             <div class="col-sm">
-                                <input class="form-control" type="number" name="rt" id="" value="<?= old('rt'); ?>">
+                                <input class="form-control" type="number" name="rt" value="<?= old('rt'); ?>">
                             </div>
                             <div></div>
                             <label class="col-sm-2 col-form-label">RW</label>
                             <div class="col-sm">
-                                <input class="form-control" type="number" name="rw" id="" value="<?= old('rw'); ?>">
+                                <input class="form-control" type="number" name="rw" value="<?= old('rw'); ?>">
                             </div>
                         </div>
 
@@ -135,6 +135,7 @@ echo form_open('anggota/insert'); ?>
                         </div>
 
                         <?php
+                        // var_dump($komisariat);
                         $role_level = session('role_level');
                         if ($role_level == 1) : ?>
                             <div class="form-group row">
@@ -281,7 +282,7 @@ echo form_open('anggota/insert'); ?>
         </div>
     </div>
     <div class="card-footer" align="right">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Gagal</button>
+        <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Gagal</button> -->
         <button type="submit" class="btn btn-primary">Tambah</button>
     </div>
 </div>
