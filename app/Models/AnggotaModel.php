@@ -17,11 +17,11 @@ class AnggotaModel extends Model
 	protected $allowedFields        = [];
 
 	// Dates
-	protected $useTimestamps        = false;
-	protected $dateFormat           = 'datetime';
-	protected $createdField         = 'created_at';
-	protected $updatedField         = 'updated_at';
-	protected $deletedField         = 'deleted_at';
+	// protected $useTimestamps        = false;
+	// protected $dateFormat           = 'datetime';
+	// protected $createdField         = 'created_at';
+	// protected $updatedField         = 'updated_at';
+	// protected $deletedField         = 'deleted_at';
 
 	// Validation
 	protected $validationRules      = [];
@@ -30,20 +30,19 @@ class AnggotaModel extends Model
 	protected $cleanValidationRules = true;
 
 	// Callbacks
-	protected $allowCallbacks       = true;
-	protected $beforeInsert         = [];
-	protected $afterInsert          = [];
-	protected $beforeUpdate         = [];
-	protected $afterUpdate          = [];
-	protected $beforeFind           = [];
-	protected $afterFind            = [];
-	protected $beforeDelete         = [];
-	protected $afterDelete          = [];
+	// protected $allowCallbacks       = true;
+	// protected $beforeInsert         = [];
+	// protected $afterInsert          = [];
+	// protected $beforeUpdate         = [];
+	// protected $afterUpdate          = [];
+	// protected $beforeFind           = [];
+	// protected $afterFind            = [];
+	// protected $beforeDelete         = [];
+	// protected $afterDelete          = [];
 
 	protected $viewAnggota = "anggota_view";
 	protected $column_order = array(null, null,  'nama', 'alamat1', 'komisariat', 'status'); //urut sesuai dengan kolom pada view jumlah sesuai dengan <th></th>
 	protected $column_search = array('nama', 'alamat1', 'komisariat', 'status');
-	protected $order = array('komisariat' => 'asc', 'status' => 'asc'); //default order
 	protected $dt;
 
 
@@ -70,16 +69,16 @@ class AnggotaModel extends Model
 		$getKomisariat 	= session('getKomisariat');
 		$urlKomisariat 	= session('urlKomisariat');
 
+		// $this->dt = $this->db->table($this->viewAnggota)->select('id', 'nama', 'alamat1', 'komisariat', 'id_status', 'status');
+
 		if ($level == 1) {
 			if ($getKomisariat == true) {
-				// $this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $urlKomisariat)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
 				$this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $urlKomisariat);
+				// $this->dt->where('komisarat', $urlKomisariat);
 			} else {
-				// $this->dt = $this->db->table($this->viewAnggota)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
 				$this->dt = $this->db->table($this->viewAnggota);
 			}
 		} elseif ($level == 2) {
-			// $this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $komisariat)->orderBy('komisariat', 'asc')->orderBy('id_status', 'asc');
 			$this->dt = $this->db->table($this->viewAnggota)->where('komisariat', $komisariat);
 		}
 		// session()->remove('getKomisariat');
@@ -107,10 +106,15 @@ class AnggotaModel extends Model
 		}
 
 		if (isset($_POST['order'])) { // here order processing
-			$this->dt->orderby($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-		} else if (isset($this->order)) {
-			$order = $this->order;
-			$this->dt->orderby(key($order), $order[key($order)]);
+			$this->dt->orderBy($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+			// } else if (isset($this->order)) {
+			// 	$order = $this->order;
+			// 	$this->dt->orderBy(key($order), $order[key($order)]);
+		} else {
+			$this->dt
+				->orderBy('komisariat', 'asc')
+				->orderBy('id_status', 'asc')
+				->orderBy('id', 'desc');
 		}
 	}
 	function get_datatables()

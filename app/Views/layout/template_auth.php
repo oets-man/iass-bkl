@@ -36,8 +36,6 @@
                 <!-- load content -->
                 <!-- ISI -->
                 <?= $this->renderSection('content') ?>
-
-
             </div>
         </div>
 

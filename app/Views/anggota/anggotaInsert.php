@@ -25,6 +25,7 @@ echo form_open('anggota/insert'); ?>
                         <div class="form-group row">
                             <label for="nama" class="col-sm-4 col-form-label">Nama Lengkap</label>
                             <div class="col-sm">
+                                <input type="hidden" name="id">
                                 <input required name="nama" type="text" class="form-control" id="nama" value="<?= old('nama'); ?>">
                             </div>
                         </div>
@@ -251,7 +252,7 @@ echo form_open('anggota/insert'); ?>
                         <div class="form-group row">
                             <label for="nama" class="col-sm-4 col-form-label">Foto</label>
                             <div class="col-sm">
-                                <input disabled type="password" class="form-control" id="nama" placeholder="fitur ini dalam pengembangan">
+                                <input disabled type="text" class="form-control" id="foto" placeholder="fitur ini dalam pengembangan">
                             </div>
                         </div>
                     </div>
