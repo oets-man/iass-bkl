@@ -50,14 +50,13 @@ class AnggotaModel extends Model
 	{
 		parent::__construct();
 	}
-	// public function getAnggota()
-	// {
-	// 	$builder = $this->viewAnggota;
-	// 	$query = $builder->get();
-	// 	return $query;
-	// }
 
-
+	public function getAnggota($id)
+	{
+		$builder = $this->db->table($this->viewAnggota)->where('id', $id);
+		$query	 = $builder->get();
+		return $query;
+	}
 
 	private function _filterQuery()
 	{
@@ -117,6 +116,7 @@ class AnggotaModel extends Model
 				->orderBy('id', 'desc');
 		}
 	}
+
 	function get_datatables()
 	{
 		$this->_get_datatables_query();

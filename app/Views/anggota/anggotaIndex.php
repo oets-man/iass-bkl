@@ -44,7 +44,7 @@
 
 <?php
 $data = $_SERVER['PATH_INFO'];
-$getKomisariat = substr($data, stripos($data, "komisariat/")) > 0 ? true : false;
+$getKomisariat = stripos($data, "komisariat/")  ? true : false;
 $urlKomisariat = substr($data, stripos($data, "komisariat/") + 11);
 // $level = session('role_level');
 // var_dump(stripos($data, "komisariat/"));

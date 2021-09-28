@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-
+use App\Models\AnggotaModel;
 use CodeIgniter\HTTP\IncomingRequest;
 
 // use App\Models\ServerSideModel;
@@ -176,6 +176,7 @@ class Anggota extends BaseController
 				'pps_kelas'			=> $pps_kelas,
 				'pps_tingkat' 		=> $pps_tingkat,
 				'formal_tingkat' 	=> $formal_tingkat,
+				'title'				=> 'Tambah Anggota',
 			];
 			return view('anggota/anggotaInsert', $data);
 		}
@@ -184,6 +185,12 @@ class Anggota extends BaseController
 
 	function Detail($id)
 	{
-		echo "<h1>Dalam Pengembangan</h1>";
+		$anggotaModel = new \App\Models\AnggotaModel();
+		$anggota = $anggotaModel->getAnggota($id)->getRow();
+		$data = [
+			'title'			=> 'Detail Anggota',
+			'anggota'		=> $anggota,
+		];
+		return view('anggota/anggotaDetail', $data);
 	}
 }

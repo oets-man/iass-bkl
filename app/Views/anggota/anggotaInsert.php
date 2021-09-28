@@ -8,7 +8,7 @@ echo form_open('anggota/insert'); ?>
 
 <div class="card shadow mb-4">
     <div class="card-header">
-        <h3 class="text-primary my-1">Tambah Data Anggota</h3>
+        <h3 class="text-primary my-1"><?= $title; ?></h3>
     </div>
     <div class="card-body">
 
@@ -145,7 +145,7 @@ echo form_open('anggota/insert'); ?>
                                     <select required name="komisariat" class="form-control" value="<?= old('komisariat'); ?>">
                                         <option value="">Pilih Komisariat</option>
                                         <?php foreach ($komisariat as $kom) : ?>
-                                            <option value="<?= $kom->komisariat; ?>"><?= $kom->komisariat; ?></option>
+                                            <option value="<?= $kom->id; ?>"><?= $kom->id; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
