@@ -12,7 +12,7 @@ class UserModel extends Model
 	protected $tabelRole;
 	protected $returnType 			= 'App\Entities\UserEntity';
 	protected $table                = 'user';
-	protected $primaryKey           = 'email';
+	protected $primaryKey           = 'id';
 	protected $protectFields        = true;
 	protected $allowedFields        = ['email', 'nama', 'password', 'avatar', 'jabatan', 'role_id', 'is_active', 'is_reset'];
 }

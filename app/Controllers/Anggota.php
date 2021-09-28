@@ -81,6 +81,7 @@ class Anggota extends BaseController
 				"recordsFiltered" => $anggotaModel->count_filtered(),
 				"data" => $data
 			];
+			$output[csrf_token()] = csrf_hash();
 			echo json_encode($output);
 		}
 	}
@@ -150,7 +151,7 @@ class Anggota extends BaseController
 					$session->setFlashData('errors', [
 						'Data gagal ditambahkan.',
 						'Cek ulang data Anda.',
-						'Catatan: bebera data harus unik seperti NIK, ID IASS, dan ID PPS.'
+						'Catatan: beberapa data harus unik seperti NIK, ID IASS, dan ID PPS.'
 					]);
 					return redirect()->back()->withInput();
 				}

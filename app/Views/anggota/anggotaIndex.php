@@ -60,27 +60,65 @@ session()->set($sessData);
 
 ?>
 
+<script type="text/javascript">
+    // $(document).ready(function() {
+    //     var token = "<?= csrf_hash() ?>";
+    //     var table = $('#myTable').DataTable({
+    //         "processing": true,
+    //         "serverSide": true,
+    //         "order": [],
+    //         "ajax": {
+    //             "url": "<?php echo base_url('icd/ajax_list') ?>",
+    //             "type": "POST",
+    //             data: function(d) {
+    //                 d.<?= csrf_token() ?> = token;
+    //             }
+    //         },
+    //         //optional
+    //         "lengthMenu": [
+    //             [5, 10, 25],
+    //             [5, 10, 25]
+    //         ],
+    //         "columnDefs": [{
+    //             "targets": [0, 1, 2],
+    //             "orderable": true,
+    //         }, ],
+    //     });
+    //     table.on('xhr.dt', function(e, settings, json, xhr) {
+    //         token = json.<?= csrf_token() ?>;
+    //     });
+    // });
+</script>
+
 <script>
     function listDataAnggota() {
+        var token = "<?= csrf_hash() ?>";
         var table = $('#tabel-anggota').DataTable({
             'processing': true,
             'serverSide': true,
-            'order': [
-                // [4, 'asc'],
-                // [5, 'asc']
-            ],
+            'order': [],
             'ajax': {
                 'url': "<?= base_url('anggota/listdata') ?>",
                 'type': "POST",
-                'data': {},
-
+                'data': function(d) {
+                    d.<?= csrf_token() ?> = token;
+                },
             },
+            //optional
+            // "lengthMenu": [
+            //     [5, 10, 25],
+            //     [5, 10, 25]
+            // ],
             'columnDefs': [{
                 'targets': [0, 1],
                 'orderable': false,
                 'className': 'text-center'
             }],
-        })
+        });
+
+        table.on('xhr.dt', function(e, settings, json, xhr) {
+            token = json.<?= csrf_token() ?>;
+        });
     }
 
     $(document).ready(function() {

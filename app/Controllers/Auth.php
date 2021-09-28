@@ -100,7 +100,7 @@ class Auth extends BaseController
 								return view('auth/reset', $data);
 							}
 						} else {
-							$this->session->setFlashData('errors', ['Akun belum aktif. Silakan hubuhing Ust Tijani.']);
+							$this->session->setFlashData('errors', ['Akun belum aktif. Silakan hubungi Ust Tijani Fattah.']);
 						}
 					} else {
 						$this->session->setFlashData('errors', ['Kata sandi salah.']);
