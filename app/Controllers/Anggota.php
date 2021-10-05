@@ -72,6 +72,7 @@ class Anggota extends BaseController
 				$row[] = $list->nama;
 				$row[] = $list->alamat1;
 				$row[] = $list->komisariat;
+				$row[] = $list->ranting;
 				$row[] = $list->status;
 				$data[] = $row;
 			}

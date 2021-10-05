@@ -1,9 +1,12 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 
+<?php require_once(APPPATH . "views/komisariat/ranting.php");; ?>
+
 <?php
-helper('form');
-echo form_open('anggota/insert'); ?>
+// echo form_open('anggota/insert');
+?>
+
 
 
 <div class="card shadow mb-4">
@@ -13,7 +16,6 @@ echo form_open('anggota/insert'); ?>
     <div class="card-body">
 
         <div class="row row-cols-1 row-cols-md-3">
-
             <!-- star card -->
             <div class="col mb-4">
                 <div class="card">
@@ -21,6 +23,10 @@ echo form_open('anggota/insert'); ?>
                         <h5 class="text-primary my-0">Idendtitas Diri</h5>
                     </div>
                     <div class="card-body">
+
+                        <?php
+                        echo form_open('anggota/insert');
+                        ?>
 
                         <div class="form-group row">
                             <label for="nama" class="col-sm-4 col-form-label">Nama Lengkap</label>
@@ -134,6 +140,29 @@ echo form_open('anggota/insert'); ?>
                                 <input type="text" name="jl" class="form-control" placeholder="Dusun/Jl/Gg/dll..." value="<?= old('jl'); ?>">
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- star card -->
+            <div class="col mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-primary my-0">Keanggotaan
+                            <span class="float-right"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalRanting">
+                                    Data Ranting
+                                </button></span>
+                        </h5>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-4 col-form-label">Wilayah</label>
+                            <div class="col-sm">
+                                <input type="text" disabled name="wilayah" class="form-control" placeholder="" value="Bangkalan">
+                            </div>
+                        </div>
 
                         <?php
                         // var_dump($komisariat);
@@ -159,6 +188,14 @@ echo form_open('anggota/insert'); ?>
                                 </div>
                             </div>
                         <?php endif; ?>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-4 col-form-label">Ranting</label>
+                            <div class="col-sm">
+                                <input type="text" disabled name="wilayah" class="form-control" placeholder="" value="Belum Selesai">
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
@@ -258,27 +295,6 @@ echo form_open('anggota/insert'); ?>
                     </div>
                 </div>
             </div>
-
-            <!-- star card -->
-            <!-- <div class="col mb-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-primary my-0">Lapor</h5>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="form-group">
-                            <label for="text-area">Teks Laporan</label>
-                            <textarea disabled class="form-control" id="text-area" rows="3"></textarea>
-                        </div>
-                        <div class="form-group form-check">
-                            <input disabled type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
             <!-- end card -->
         </div>
     </div>

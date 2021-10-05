@@ -26,7 +26,8 @@ endif;
             <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Buat Akun!</h1>
             </div>
-            <?php helper('form'); ?>
+            <?php //helper('form'); 
+            ?>
             <?= form_open('auth/registrasi'); ?>
             <!-- <= csrf_field(); ?> -->
             <!-- row 1 -->

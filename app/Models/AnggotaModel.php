@@ -41,8 +41,8 @@ class AnggotaModel extends Model
 	// protected $afterDelete          = [];
 
 	protected $viewAnggota = "anggota_view";
-	protected $column_order = array(null, null,  'nama', 'alamat1', 'komisariat', 'status'); //urut sesuai dengan kolom pada view jumlah sesuai dengan <th></th>
-	protected $column_search = array('nama', 'alamat1', 'komisariat', 'status');
+	protected $column_order = array(null, null,  'nama', 'alamat1', 'komisariat', 'ranting', 'status'); //urut sesuai dengan kolom pada view jumlah sesuai dengan <th></th>
+	protected $column_search = array('nama', 'alamat1', 'komisariat', 'ranting', 'status');
 	protected $dt;
 
 
@@ -112,6 +112,7 @@ class AnggotaModel extends Model
 		} else {
 			$this->dt
 				->orderBy('komisariat', 'asc')
+				->orderBy('ranting', 'asc')
 				->orderBy('id_status', 'asc')
 				->orderBy('id', 'desc');
 		}
