@@ -46,7 +46,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:orange">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(); ?>">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= site_url(); ?>">
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-landmark"></i>
                 </div>
@@ -95,7 +95,7 @@
 
                 <?php foreach ($menuSub as $sub) : ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() . "/" . $sub->url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
+                        <a class="nav-link" href="<?= site_url() . "/" . $sub->url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
                             <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                             <?= $sub->icon; ?>
                             <span><?= $sub->title; ?></span>
@@ -143,11 +143,11 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $nama; ?></span>
-                                <img class="img-profile rounded-circle" src="<?= base_url('assets'); ?>/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="<?= site_url('assets'); ?>/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= base_url('user/profile') . '/' . $email; ?>">
+                                <a class="dropdown-item" href="<?= site_url('user/profile') . '/' . $email; ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profil
                                 </a>
@@ -238,7 +238,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal" style="width: 75px;">Tidak</button>
-                    <a class="btn btn-danger" href="<?= base_url('auth/logout'); ?>" style="width: 75px;">Ya</a>
+                    <a class="btn btn-danger" href="<?= site_url('auth/logout'); ?>" style="width: 75px;">Ya</a>
                 </div>
             </div>
         </div>

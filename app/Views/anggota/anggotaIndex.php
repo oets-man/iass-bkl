@@ -3,17 +3,33 @@
 
 <!-- Page Heading -->
 
+<?php
+$data = $_SERVER['PATH_INFO'];
+$getKomisariat = stripos($data, "komisariat/")  ? true : false;
+$urlKomisariat = substr($data, stripos($data, "komisariat/") + 11);
+$sessData = [
+    'getKomisariat' => $getKomisariat,
+    'urlKomisariat' => $urlKomisariat,
+];
+session()->set($sessData);
+?>
+
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-
-        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
-            Tambah
-        </button> -->
-        <a href="<?= base_url('anggota/insert'); ?>" type="button" class="btn btn-primary">
-            Tambah
-        </a>
-
+        <h3 class="text-primary m-0">Daftar Anggota
+            <?php
+            if ($getKomisariat) : ?>
+                Komisariat <?= strtoupper($urlKomisariat); ?>
+                <span class="float-right">
+                    <a href="<?= base_url('anggota/insert'); ?>" type="button" class="btn btn-sm btn-primary">
+                        Tambah
+                    </a>
+                </span>
+            <?php else : ?>
+                IASS Wilayah BANGKALAN
+            <?php endif; ?>
+        </h3>
     </div>
     <div class="card-body">
         <div class="table-responsive table-hover">
@@ -41,24 +57,6 @@
 <!-- modal tambah data -->
 <?php
 // echo view_cell('\App\Controllers\Anggota::insert'); 
-?>
-
-<?php
-$data = $_SERVER['PATH_INFO'];
-$getKomisariat = stripos($data, "komisariat/")  ? true : false;
-$urlKomisariat = substr($data, stripos($data, "komisariat/") + 11);
-// $level = session('role_level');
-// var_dump(stripos($data, "komisariat/"));
-// var_dump($url_komisariat);
-// var_dump($is_komisariat);
-// var_dump($level);
-
-$sessData = [
-    'getKomisariat'    => $getKomisariat,
-    'urlKomisariat'    => $urlKomisariat,
-];
-session()->set($sessData);
-
 ?>
 
 <script>

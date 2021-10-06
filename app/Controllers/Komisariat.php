@@ -10,11 +10,14 @@ class Komisariat extends BaseController
     {
         //
     }
-    public function ranting()
+    public function ranting($komisariat)
     {
+
         $db = db_connect();
-        $ranting = $db->table('list_ranting')->get()->getResult();
-        $komisariat = $db->table('user_role')->get()->getResult();
+
+        $ranting = $db->table('list_ranting')->where('komisariat', $komisariat)->get()->getResult();
+        // $ranting = $db->table('list_ranting')->get()->getResult();
+        // $komisariat = $db->table('user_role')->get()->getResult();
         $data = [
             'ranting' => $ranting,
             'komisariat' => $komisariat,
@@ -22,12 +25,22 @@ class Komisariat extends BaseController
 
         return view('komisariat/ranting', $data);
     }
+    public function delRanting()
+    {
+        if ($this->request->isAJAX()) {
+
+            $id = $this->request->getVar('id');
+            $this->db->table('list_ranting')->where('id', $id)->delete();
+            return json_encode(true);
+        }
+        return json_encode(false);
+    }
     public function getRanting()
     {
-        $db = db_connect();
-        $komisariat = $this->request->getVar('komisariat');
-        $data = $db->table('list_ranting')->where('komisariat', $komisariat)->get()->getResultArray();
-        echo json_encode($data);
+        // $db = db_connect();
+        // $komisariat = $this->request->getVar('komisariat');
+        // $data = $db->table('list_ranting')->where('komisariat', $komisariat)->get()->getResultArray();
+        // echo json_encode($data);
     }
     public function insertRanting()
     {

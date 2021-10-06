@@ -1,7 +1,9 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 
-<?php require_once(APPPATH . "views/komisariat/ranting.php");; ?>
+<?php
+// require_once(APPPATH . "views/komisariat/ranting.php");; 
+?>
 
 <?php
 // echo form_open('anggota/insert');
@@ -10,23 +12,80 @@
 
 
 <div class="card shadow mb-4">
+    <?php
+    echo form_open('anggota/insert');
+    ?>
+
     <div class="card-header">
-        <h3 class="text-primary my-1"><?= $title; ?></h3>
+        <h3 class="text-primary my-1"><?= $title; ?> Komisariat <?= session('urlKomisariat'); ?></h3>
     </div>
     <div class="card-body">
-
         <div class="row row-cols-1 row-cols-md-3">
-            <!-- star card -->
+
+            <!-- star card Keanggotaan -->
+            <div class="col mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-primary my-0">Keanggotaan
+                            <span class="float-right">
+                                <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalRanting">Data Ranting</button> -->
+                                <a class="btn btn-primary btn-sm" href="<?= base_url('komisariat/ranting') . '/' . session('urlKomisariat'); ?>">Daftar Ranting</a>
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-4 col-form-label">Wilayah</label>
+                            <div class="col-sm">
+                                <input type="text" disabled name="wilayah" class="form-control" placeholder="" value="Bangkalan">
+                            </div>
+                        </div>
+
+                        <?php
+                        // var_dump($komisariat);
+                        $role_level = session('role_level');
+                        if ($role_level == 1) : ?>
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label">Komisariat</label>
+                                <div class="col-sm">
+                                    <select required name="komisariat" class="form-control" value="<?= old('komisariat'); ?>">
+                                        <option value="">Pilih Komisariat</option>
+                                        <?php foreach ($komisariat as $kom) : ?>
+                                            <option value="<?= $kom->id; ?>"><?= $kom->id; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        <?php else :
+                            $komisariat = session('komisariat'); ?>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Komisariat</label>
+                                <div class="col-sm">
+                                    <input type="text" readonly name="komisariat" class="form-control" value="<?= $komisariat; ?>">
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-4 col-form-label">Ranting</label>
+                            <div class="col-sm">
+                                <input type="text" disabled name="wilayah" class="form-control" placeholder="" value="Belum Selesai">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- star card Identitas Diri-->
             <div class="col mb-4">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="text-primary my-0">Idendtitas Diri</h5>
                     </div>
                     <div class="card-body">
-
-                        <?php
-                        echo form_open('anggota/insert');
-                        ?>
 
                         <div class="form-group row">
                             <label for="nama" class="col-sm-4 col-form-label">Nama Lengkap</label>
@@ -75,7 +134,7 @@
                 </div>
             </div>
 
-            <!-- star card -->
+            <!-- star card Alamat-->
             <div class="col mb-4">
                 <div class="card">
                     <div class="card-header">
@@ -144,64 +203,7 @@
                 </div>
             </div>
 
-            <!-- star card -->
-            <div class="col mb-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-primary my-0">Keanggotaan
-                            <span class="float-right"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalRanting">
-                                    Data Ranting
-                                </button></span>
-                        </h5>
-
-                    </div>
-                    <div class="card-body">
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-4 col-form-label">Wilayah</label>
-                            <div class="col-sm">
-                                <input type="text" disabled name="wilayah" class="form-control" placeholder="" value="Bangkalan">
-                            </div>
-                        </div>
-
-                        <?php
-                        // var_dump($komisariat);
-                        $role_level = session('role_level');
-                        if ($role_level == 1) : ?>
-                            <div class="form-group row">
-                                <label for="" class="col-sm-4 col-form-label">Komisariat</label>
-                                <div class="col-sm">
-                                    <select required name="komisariat" class="form-control" value="<?= old('komisariat'); ?>">
-                                        <option value="">Pilih Komisariat</option>
-                                        <?php foreach ($komisariat as $kom) : ?>
-                                            <option value="<?= $kom->id; ?>"><?= $kom->id; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                        <?php else :
-                            $komisariat = session('komisariat'); ?>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Komisariat</label>
-                                <div class="col-sm">
-                                    <input type="text" readonly name="komisariat" class="form-control" value="<?= $komisariat; ?>">
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-4 col-form-label">Ranting</label>
-                            <div class="col-sm">
-                                <input type="text" disabled name="wilayah" class="form-control" placeholder="" value="Belum Selesai">
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- star card -->
+            <!-- star card Data PPS-->
             <div class="col mb-4">
                 <div class="card">
                     <div class="card-header">
@@ -254,7 +256,7 @@
                 </div>
             </div>
 
-            <!-- star card -->
+            <!-- star card Lain-Lain -->
             <div class="col mb-4">
                 <div class="card">
                     <div class="card-header">
@@ -295,6 +297,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- end card -->
         </div>
     </div>
@@ -302,9 +305,10 @@
         <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Gagal</button> -->
         <button type="submit" class="btn btn-primary">Tambah</button>
     </div>
+    <?= form_close(); ?>
 </div>
 
-<?= form_close(); ?>
+
 
 
 <script type="text/javascript">

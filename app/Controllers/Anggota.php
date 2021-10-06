@@ -123,6 +123,12 @@ class Anggota extends BaseController
 
 	public function insert()
 	{
+		if (!session('getKomisariat')) {
+			session()->setFlashData('errors', ['Session Komisariat tidak ditemukan.', 'Silakan Akses melalui menu Komisariat!']);
+
+			return redirect()->back();
+		}
+
 		$validation = \Config\Services::validation();
 		$session = session();
 		if ($this->request->getPost()) {
@@ -179,6 +185,7 @@ class Anggota extends BaseController
 				'pps_tingkat' 		=> $pps_tingkat,
 				'formal_tingkat' 	=> $formal_tingkat,
 				'title'				=> 'Tambah Anggota',
+				// 'ranting'			=> $ranting = []
 			];
 			return view('anggota/anggotaInsert', $data);
 		}

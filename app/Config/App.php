@@ -37,7 +37,9 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $indexPage = 'index.php';
+	//custome by oets
+	public $indexPage = '';
+	// public $indexPage = 'index.php';
 
 	/**
 	 * --------------------------------------------------------------------------

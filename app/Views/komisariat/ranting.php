@@ -1,145 +1,95 @@
 <?php
-// echo $this->extend('layout/template'); 
+
+use PhpParser\Node\Stmt\Foreach_;
+
+echo $this->extend('layout/template');
 ?>
 <?php
-// echo $this->section('content'); 
+echo $this->section('content');
 ?>
 
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRanting">
-    Launch demo modal
-</button> -->
 
 <!-- Modal -->
+<script>
+    $(document).ready(function() {
+        $("#modalRanting").modal('show');
+    });
+</script>
+
 <div class="modal fade" data-backdrop="static" id="modalRanting" tabindex="-1" role="dialog" aria-labelledby="modalRantingLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>List Ranting</h5>
+                <h5 class="m-0 text-primary">Daftar RANTING<br>Komisariat <?= strtoupper($komisariat); ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-header form-group row my-0">
-                <label for="komisariat" class="col-sm-3 col-form-label text-primary font-weight-bold">Komisariat:</label>
-                <div class="col-sm-9">
-                    <select class="form-control" id="komisariat">
-                        <option value="">Pilih Komisariat ...</option>
-                        <?php
-                        foreach ($komisariat as $key => $value) : ?>
-                            <option value="<?= $value->id; ?>"><?= $value->id; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="modal-body">
-                <?= form_open('komisariat/insertRanting', ['class' => 'formInsertRanting']); ?>
+            <div class="modal-body pb-0">
+                <?php echo form_open('komisariat/insertRanting', ['class' => 'formInsertRanting']);
+                ?>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Ranting</th>
-                            <th class="text-center"><i class="fas fa-trash"></i></th>
+                            <th class="text-center">
+                                <div class="btn btn-danger btn-sm disabled">
+                                    <i class="fas fa-fw fa-exclamation"></i>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody id="listranting">
-                        <tr>
-                            <td></td>
-                            <td class="text-info">Silakan tentukan komisariat...</td>
-                            <td></td>
-                        </tr>
+                    <tbody>
+                        <?php foreach ($ranting as $key => $r) : ?>
+                            <tr>
+                                <td><?= ++$key; ?></td>
+                                <td><?= $r->ranting; ?></td>
+                                <th class="text-center">
+                                    <meta name="csrf-token" content="<?= csrf_hash(); ?>">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="del('<?= $r->id; ?>')">
+                                        <i class="fas fa-fw fa-trash"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
-
                     <tbody class="form-add" style="display: none;">
                     </tbody>
-                    <tbody class="" style="display: none;">
+                    <tbody>
                         <tr>
-                            <td colspan="3" class="text-right">
+                            <td colspan="3" class="text-right pb-0">
+                                <button type="button" class="btn btn-danger btn-sm mr-2" data-dismiss="modal">Tutup</button>
                                 <button type="button" class="btn btn-success btn-sm btn-add mr-2">Tambah</button>
                                 <button type="submit" class="btn btn-primary btn-sm btn-ins">Simpan</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <?= form_close(); ?>
-                <!-- </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button> -->
+                <?php echo form_close();
+                ?>
             </div>
         </div>
     </div>
 </div>
 
 
-
-
-
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#komisariat').change(function() {
-            var komisariat = $(this).val();
-            if (komisariat != '') {
-                $('tbody').show();
-
-                $.ajax({
-                    url: "<?= base_url('komisariat/getRanting') ?>",
-                    method: 'POST',
-                    data: {
-                        komisariat: komisariat,
-                    },
-                    dataType: "JSON",
-                    success: function(data) {
-                        if (data.length > 0) {
-                            var html = '';
-                            var i = 1;
-                            data.forEach(data => {
-                                // console.log(data.ranting);
-                                html += `
-                                <tr>
-                                    <td>` + i++ + `</td>
-                                    <td>` + data.ranting + `</td>
-                                    <td class='text-center'>
-                                        <a class="text-danger" href="<?= site_url('komisariat/rantingdelete/'); ?>` + data.id + `"><i class="fas fa-trash"></a></i>
-                                    </td>
-                                </tr>`
-                            });
-                        } else {
-                            var html = `
-                                <tr>
-                                    <td></td>
-                                    <td>Belum ada data. Silakan klik tambah!</td>
-                                    <td></td>
-                                </tr>`;
-                        }
-                        $('#listranting').html(html);
-                        // console.log(data);
-                    },
-                    error: function(xhr, thrownError) {
-                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
-                    }
-                });
-            } else {
-                $('tbody').hide();
-            }
-        });
-    });
-
     $(document).ready(function(e) {
         $('.btn-add').click(function(e) {
-            var komisariat = $('#komisariat').val();
+            var komisariat = "<?= $komisariat; ?>";
             e.preventDefault();
+            $('.form-add').show();
             $('.form-add').append(`
                 <tr>
-                    <td id="">
-                        <input type="text" name="komisariat[]" class="form-control-plaintext" value="` + komisariat + `" readonly>
+                    <td>
+                        <input type="hidden" name="komisariat[]" class="form-control-plaintext" value="` + komisariat + `" readonly>
                     </td>
-                    <td id="">
+                    <td id>
                         <input type="text" name="ranting[]" class="form-control" placeholder="Masukkan ranting baru, lalu klik simpan!">
                     </td>
                     <td class="text-danger text-center">
-                        <button type="button" class="btn btn-danger btn-sm btn-del"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-del"><i class="fa fa-fw fa-minus"></i></button>
                     </td>
                 </tr>
             `)
@@ -166,7 +116,8 @@
                     if (response == true) {
                         alert("Data berhasil ditambahkan!");
                         // window.location.href = "<?= site_url('komisariat/ranting') ?>";
-                        location.reload();
+                        // location.reload();
+                        $('#modalRanting').modal('hide');
                     } else {
                         alert("Tidak ada data yang ditambahkan!");
                     }
@@ -183,8 +134,42 @@
     $(document).on('click', '.btn-del', function(e) {
         $(this).parents('tr').remove();
     });
+
+    $('#modalRanting').on('hidden.bs.modal', function() {
+        // window.alert('hidden event fired!');
+        parent.history.back();
+        return false;
+    });
+
+    function del(id) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+                // 'X-CSRF-TOKEN': $('input[name="csrf_test_name"]').val()
+                // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('komisariat/delRanting'); ?>",
+            data: {
+                id: id,
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response == true) {
+                    location.reload();
+                } else {
+                    alert("Gagal dihapus");
+                }
+            },
+            error: function(xhr, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
+            }
+        });
+    }
 </script>
 
 <?php
-// echo $this->endSection(); 
+echo $this->endSection();
 ?>
