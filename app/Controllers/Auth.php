@@ -46,7 +46,10 @@ class Auth extends BaseController
 	private function isLoggedIn()
 	{
 		if (session()->has('isLoggedIn')) {
-			$this->session->setFlashData('errors', ['Anda sudah masuk. Silakan <a href="logout">keluar</a> terlebih dahulu untuk mengakses halaman ini.']);
+			$this->session->setFlashData('errors', [
+				'Anda sudah masuk. Silakan <a href="logout">keluar</a> terlebih dahulu untuk mengakses halaman ini.',
+				'Atau Anda bisa kembali ke halaman <a href="javascript:history.back()">sebelumnya</a>.'
+			]);
 			return redirect()->back();
 		}
 	}
