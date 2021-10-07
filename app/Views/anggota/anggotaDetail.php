@@ -7,12 +7,47 @@
 
 <div class="card shadow mb-4">
     <div class="card-header">
-        <h3 class="text-primary my-1"><?= $title; ?></h3>
-        <a href="" class="btn btn-warning"">Edit</a>
-        <a href="" class=" btn btn-danger"">Hapus</a>
+        <h3 class="text-primary my-1"><?= $title; ?>
+            <span class="float-right">
+                <a href="" class="btn btn-warning btn-sm">Edit</a>
+                <a href="" class="btn btn-danger btn-sm">Hapus</a>
+            </span>
+        </h3>
+
     </div>
     <div class=" card-body">
         <div class="row row-cols-1 row-cols-md-3">
+
+            <!-- star card -->
+            <div class="col mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-primary my-0">Data IASS</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>Wilayah</td>
+                                <td>Bangkalan</td>
+                            </tr>
+                            <tr>
+                                <td>Komisariat</td>
+                                <td><?= $anggota->komisariat; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Ranting</td>
+                                <td><?= $anggota->ranting; ?></td>
+                            </tr>
+                            <tr>
+                                <td>ID IASS</td>
+                                <td><?= $anggota->id_iass; ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- end card -->
+
             <!-- star card -->
             <div class="col mb-4">
                 <div class="card">
@@ -24,10 +59,6 @@
                             <tr>
                                 <td>Nama Lengkap</td>
                                 <td><?= $anggota->nama; ?></td>
-                            </tr>
-                            <tr>
-                                <td>ID IASS</td>
-                                <td><?= $anggota->id_iass; ?></td>
                             </tr>
                             <tr>
                                 <td>NIK</td>
@@ -63,10 +94,6 @@
                             <tr>
                                 <td></td>
                                 <td><?= $anggota->alamat2; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Komisariat</td>
-                                <td><?= $anggota->komisariat; ?></td>
                             </tr>
                         </table>
                     </div>

@@ -16,6 +16,7 @@
     echo form_open('anggota/insert');
     ?>
 
+
     <div class="card-header">
         <h3 class="text-primary my-1"><?= $title; ?> Komisariat <?= session('urlKomisariat'); ?></h3>
     </div>
@@ -42,38 +43,31 @@
                             </div>
                         </div>
 
-                        <?php
-                        // var_dump($komisariat);
-                        $role_level = session('role_level');
-                        if ($role_level == 1) : ?>
-                            <div class="form-group row">
-                                <label for="" class="col-sm-4 col-form-label">Komisariat</label>
-                                <div class="col-sm">
-                                    <select required name="komisariat" class="form-control" value="<?= old('komisariat'); ?>">
-                                        <option value="">Pilih Komisariat</option>
-                                        <?php foreach ($komisariat as $kom) : ?>
-                                            <option value="<?= $kom->id; ?>"><?= $kom->id; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Komisariat</label>
+                            <div class="col-sm">
+                                <input type="text" readonly name="komisariat" class="form-control" value="<?= session('urlKomisariat') ?>">
                             </div>
-                        <?php else :
-                            $komisariat = session('komisariat'); ?>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Komisariat</label>
-                                <div class="col-sm">
-                                    <input type="text" readonly name="komisariat" class="form-control" value="<?= $komisariat; ?>">
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                        </div>
 
                         <div class="form-group row">
                             <label for="" class="col-sm-4 col-form-label">Ranting</label>
                             <div class="col-sm">
-                                <input type="text" disabled name="wilayah" class="form-control" placeholder="" value="Belum Selesai">
+                                <select name="ranting" class="form-control" id="ranting" value="<?= old('ranting'); ?>">
+                                    <option value="">Pilih Ranting</option>
+                                    <?php foreach ($ranting as $r) : ?>
+                                        <option value="<?= $r->ranting; ?>"><?= $r->ranting; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">No ID IASS</label>
+                            <div class="col-sm">
+                                <input type="number" name="id_iass" class="form-control" value="<?= old('id_iass'); ?>">
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -92,13 +86,6 @@
                             <div class="col-sm">
                                 <input type="hidden" name="id">
                                 <input required name="nama" type="text" class="form-control" id="nama" value="<?= old('nama'); ?>">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">No ID IASS</label>
-                            <div class="col-sm">
-                                <input type="number" name="id_iass" class="form-control" value="<?= old('id_iass'); ?>">
                             </div>
                         </div>
 
@@ -302,43 +289,47 @@
         </div>
     </div>
     <div class="card-footer" align="right">
-        <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Gagal</button> -->
-        <button type="submit" class="btn btn-primary">Tambah</button>
+        <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
     </div>
     <?= form_close(); ?>
 </div>
-
-
-
-
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#id_kec').change(function() {
+        $('#id_kec').change(function(e) {
+            e.preventDefault();
             var kec_id = $(this).val();
             // console.log(kec_id);
             if (kec_id != '') {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     url: "<?= base_url('anggota/getAlamat') ?>",
                     method: 'POST',
                     data: {
                         kec_id: kec_id,
-                        aksi: 'getDesa'
+                        aksi: 'getDesa',
                     },
                     dataType: "JSON",
                     success: function(data) {
-                        var html = '<option value="">Pilih Desa</option>';
-                        for (var count = 0; count < data.length; count++) {
-                            // html += '<option value="' + data[count].id + '">' + data[count].desa + '</option>';
-                            html += '<option value="' + data[count].desa + '">' + data[count].desa + '</option>';
+                        var html = '<option value="x">Pilih Desa</option>';
+                        for (var i = 0; i < data.list.length; i++) {
+                            html += '<option value="' + data.list[i].desa + '">' + data.list[i].desa + '</option>';
                         }
                         $('#desa').html(html);
+                        $('meta[name="csrf-token"]').remove();
+                        $('head').append('<meta name="csrf-token" content=' + data.csrf_token + '>');
+                        $('input[name="csrf_test_name"]').val(data.csrf_token);
                     },
                     error: function(xhr, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
                     }
                 });
             } else {
-                $('#desa').val('');
+                var html = '<option value="x">Pilih Desa</option>';
+                $('#desa').html(html);
             }
         });
     });

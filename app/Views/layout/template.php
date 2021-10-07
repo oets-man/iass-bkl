@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="IASS Bangkalan">
+    <meta name="author" content="oets">
+    <meta name="csrf-token" content="<?php echo csrf_hash(); ?>">
     <?php
     $iass = "IASS Bangkalan";
     if (!isset($title)) {
@@ -84,10 +85,7 @@
                      INNER JOIN user_access
                      ON user_menu_view.id = menu_id
                      WHERE
-                        (
-                            menu = '$m' AND
-                            role_id = '$role_id'
-                        )
+                        (menu = '$m' AND role_id = '$role_id')
                      ORDER BY urut ASC"
                 );
                 $menuSub = $qMenuSub->getResult();
@@ -95,7 +93,7 @@
 
                 <?php foreach ($menuSub as $sub) : ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() . "/" . $sub->url; ?>" style="padding-top: 4px; padding-bottom: 8px;">
+                        <a class="nav-link" href="<?= site_url($sub->url); ?>" style="padding-top: 4px; padding-bottom: 8px;">
                             <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                             <?= $sub->icon; ?>
                             <span><?= $sub->title; ?></span>
@@ -129,20 +127,24 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <h1 class="h3 d-none d-sm-inline-block form-inline mr-auto ml-md-2 my-2 my-md-0 text-gray-400">Ikatan Alumni Santri Sidogiri Wilayah Bangkalan (<?= $role_id; ?>)</h1>
+                    <h2 class="h3 d-none d-sm-inline-block form-inline mr-auto ml-md-2 my-2 my-md-0 text-primary" style="font-variant: small-caps;">Ikatan Alumni Santri Sidogiri (IASS) Wilayah Bangkalan</h2>
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Alerts -->
-
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <a href="javascript:history.back()" class="btn btn-sm btn-info"><i class="fas fa-share fa-flip-horizontal"></i><span class="ml-1 d-none d-lg-inline"> Kembali</span></a>
+                            </div>
+                        </li>
                         <!-- Nav Item - Messages -->
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
+                        <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $nama; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-primary small"><?= $nama; ?></span>
                                 <img class="img-profile rounded-circle" src="<?= site_url('assets'); ?>/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->

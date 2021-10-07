@@ -6,12 +6,13 @@ use App\Controllers\BaseController;
 use App\Models\AnggotaModel;
 use CodeIgniter\HTTP\IncomingRequest;
 
-// use App\Models\ServerSideModel;
 use Config\Services;
 
 /**
  * @property IncomingRequest $request;
  */
+
+use App\Config\Security;
 
 class Anggota extends BaseController
 {
@@ -109,7 +110,11 @@ class Anggota extends BaseController
 				$alamatModel	= new \App\Models\AlamatModel();
 				$kec_id = $this->request->getVar('kec_id');
 				$data = $alamatModel->getDesa($kec_id)->getResultArray();
-				echo json_encode($data);
+				$result = [
+					'csrf_token' => csrf_hash(), //kirim token baru
+					'list' => $data
+				];
+				return json_encode($result);
 			}
 		}
 	}
@@ -129,9 +134,9 @@ class Anggota extends BaseController
 			return redirect()->back();
 		}
 
-		$validation = \Config\Services::validation();
-		$session = session();
 		if ($this->request->getPost()) {
+			$validation = \Config\Services::validation();
+			$session = session();
 			$data = $this->request->getPost();
 			$validation->run($data, 'anggota');
 			$errors = $validation->getErrors();
@@ -163,29 +168,25 @@ class Anggota extends BaseController
 					return redirect()->back()->withInput();
 				}
 			}
-
 			$session->setFlashdata('errors', $errors);
 			return redirect()->back()->withInput();
 		} else {
-			$authModel = new \App\Models\AuthModel();
-			$komisariat = $authModel->komisariatGet();
-
 			$alamatModel	= new \App\Models\AlamatModel();
 			$idKab = '3526';
 
 			$pps_kelas = $this->db->query("SELECT * FROM list_kelas")->getResult();
 			$pps_tingkat = $this->db->query("SELECT * FROM list_tingkat_pps")->getResult();
 			$formal_tingkat = $this->db->query("SELECT * FROM list_tingkat_formal")->getResult();
+			$ranting = $this->db->table('list_ranting')->where('komisariat', session('urlKomisariat'))->get()->getResult();
 
 			$data = [
 				'kecamatan'			=> $alamatModel->getKecamatan($idKab)->getResult(),
 				'kab_kota'			=> $alamatModel->getKabKota()->getResult(),
-				'komisariat'		=> $komisariat->getResult(),
 				'pps_kelas'			=> $pps_kelas,
 				'pps_tingkat' 		=> $pps_tingkat,
 				'formal_tingkat' 	=> $formal_tingkat,
 				'title'				=> 'Tambah Anggota',
-				// 'ranting'			=> $ranting = []
+				'ranting'			=> $ranting
 			];
 			return view('anggota/anggotaInsert', $data);
 		}
@@ -200,6 +201,7 @@ class Anggota extends BaseController
 			'title'			=> 'Detail Anggota',
 			'anggota'		=> $anggota,
 		];
+
 		return view('anggota/anggotaDetail', $data);
 	}
 }

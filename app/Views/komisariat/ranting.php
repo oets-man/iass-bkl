@@ -46,7 +46,6 @@ echo $this->section('content');
                                 <td><?= ++$key; ?></td>
                                 <td><?= $r->ranting; ?></td>
                                 <th class="text-center">
-                                    <meta name="csrf-token" content="<?= csrf_hash(); ?>">
                                     <button type="button" class="btn btn-danger btn-sm" onclick="del('<?= $r->id; ?>')">
                                         <i class="fas fa-fw fa-trash"></i>
                                     </button>
@@ -61,7 +60,7 @@ echo $this->section('content');
                             <td colspan="3" class="text-right pb-0">
                                 <button type="button" class="btn btn-danger btn-sm mr-2" data-dismiss="modal">Tutup</button>
                                 <button type="button" class="btn btn-success btn-sm btn-add mr-2">Tambah</button>
-                                <button type="submit" class="btn btn-primary btn-sm btn-ins">Simpan</button>
+                                <button type="submit" disabled class="btn btn-primary btn-sm btn-ins">Simpan</button>
                             </td>
                         </tr>
                     </tbody>
@@ -76,9 +75,11 @@ echo $this->section('content');
 
 <script type="text/javascript">
     $(document).ready(function(e) {
+
         $('.btn-add').click(function(e) {
             var komisariat = "<?= $komisariat; ?>";
             e.preventDefault();
+            $('.btn-ins').removeAttr('disabled');
             $('.form-add').show();
             $('.form-add').append(`
                 <tr>
@@ -114,17 +115,14 @@ echo $this->section('content');
                 },
                 success: function(response) {
                     if (response == true) {
-                        alert("Data berhasil ditambahkan!");
-                        // window.location.href = "<?= site_url('komisariat/ranting') ?>";
-                        // location.reload();
                         $('#modalRanting').modal('hide');
                     } else {
                         alert("Tidak ada data yang ditambahkan!");
                     }
                 },
-                // error: function(xhr, thrownError) {
-                //     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
-                // }
+                error: function(xhr, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError)
+                }
             });
             return false;
         });
@@ -144,9 +142,8 @@ echo $this->section('content');
     function del(id) {
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
-                // 'X-CSRF-TOKEN': $('input[name="csrf_test_name"]').val()
-                // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // 'X-CSRF-TOKEN': '<?= csrf_hash() ?>';
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
         $.ajax({

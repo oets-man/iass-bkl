@@ -62,7 +62,6 @@ class Security extends BaseConfig
 	 * @var boolean
 	 */
 	public $regenerate = true;
-
 	/**
 	 * --------------------------------------------------------------------------
 	 * CSRF Redirect

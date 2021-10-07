@@ -13,9 +13,7 @@ class Komisariat extends BaseController
     public function ranting($komisariat)
     {
 
-        $db = db_connect();
-
-        $ranting = $db->table('list_ranting')->where('komisariat', $komisariat)->get()->getResult();
+        $ranting = $this->db->table('list_ranting')->where('komisariat', $komisariat)->get()->getResult();
         // $ranting = $db->table('list_ranting')->get()->getResult();
         // $komisariat = $db->table('user_role')->get()->getResult();
         $data = [
@@ -35,13 +33,7 @@ class Komisariat extends BaseController
         }
         return json_encode(false);
     }
-    public function getRanting()
-    {
-        // $db = db_connect();
-        // $komisariat = $this->request->getVar('komisariat');
-        // $data = $db->table('list_ranting')->where('komisariat', $komisariat)->get()->getResultArray();
-        // echo json_encode($data);
-    }
+
     public function insertRanting()
     {
         if ($this->request->isAJAX()) {
@@ -51,12 +43,11 @@ class Komisariat extends BaseController
             $ranting = $this->request->getPost('ranting');
             for ($i = 0; $i < count($ranting); $i++) {
                 if (trim($komisariat[$i]) != '' && trim($ranting[$i]) != '') {
-                    $db = db_connect();
-                    $db->table('list_ranting')->insert([
+                    $this->db->table('list_ranting')->insert([
                         'komisariat' => trim($komisariat[$i]),
                         'ranting' => trim($ranting[$i])
                     ]);
-                    if ($db->affectedRows() > 0) {
+                    if ($this->db->affectedRows() > 0) {
                         $countIns++;
                     }
                 }
