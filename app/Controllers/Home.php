@@ -19,4 +19,9 @@ class Home extends BaseController
 		];
 		return view('index', $data);
 	}
+
+	public function voler()
+	{
+		return view('layout/voler');
+	}
 }

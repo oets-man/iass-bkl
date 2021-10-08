@@ -17,13 +17,13 @@ session()->set($sessData);
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h3 class="text-primary m-0">Daftar Anggota
+        <h3 class="text-primary subjudul">Daftar Anggota
             <?php
             if ($getKomisariat) : ?>
                 Komisariat <?= strtoupper($urlKomisariat); ?>
                 <span class="float-right">
                     <a href="<?= base_url('anggota/insert'); ?>" type="button" class="btn btn-sm btn-primary">
-                        Tambah
+                        <i class="fas fa-plus-square mr-2"></i>Tambah
                     </a>
                 </span>
             <?php else : ?>

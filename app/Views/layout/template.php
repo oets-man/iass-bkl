@@ -31,6 +31,15 @@
 
 </head>
 
+<style>
+    h3.subjudul {
+        font-weight: lighter;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+
+
 <body id="page-top">
 
     <!-- panggil session auth-->
@@ -257,11 +266,13 @@
 
 
     <!-- TABEL table -->
-    <!-- Page level plugins -->
     <script src="<?= base_url('assets'); ?>/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-
+    <!-- <script>
+        $(document).ready(function() {
+            $('#tabelUser').DataTable();
+        });
+    </script> -->
 
 </body>
 

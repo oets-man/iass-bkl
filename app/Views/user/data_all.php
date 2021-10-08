@@ -9,11 +9,18 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
+        <h3 class="text-primary subjudul">Data User
+            <span class="float-right">
+                <a href="<?= site_url('auth/registrasi'); ?>" type="button" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus-square mr-2"></i>Tambah
+                </a>
+            </span>
+        </h3>
     </div>
     <div class="card-body">
         <div class="table-responsive table-hover">
             <table class="table table-bordered" id="tabelUser" width="100%" cellspacing="0">
+                <!-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> -->
                 <thead>
                     <tr>
                         <th>No</th>
@@ -45,8 +52,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <?= $this->endSection() ?>

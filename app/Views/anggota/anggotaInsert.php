@@ -18,7 +18,7 @@
 
 
     <div class="card-header">
-        <h3 class="text-primary my-1"><?= $title; ?> Komisariat <?= session('urlKomisariat'); ?></h3>
+        <h3 class="text-primary subjudul"><?= $title; ?> Komisariat <?= session('urlKomisariat'); ?></h3>
     </div>
     <div class="card-body">
         <div class="row row-cols-1 row-cols-md-3">
@@ -289,7 +289,7 @@
         </div>
     </div>
     <div class="card-footer" align="right">
-        <button type="submit" class="btn btn-primary btn-sm">Tambah</button>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-plus-square mr-2"></i>Tambah</button>
     </div>
     <?= form_close(); ?>
 </div>

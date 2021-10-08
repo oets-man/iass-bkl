@@ -7,10 +7,10 @@
 
 <div class="card shadow mb-4">
     <div class="card-header">
-        <h3 class="text-primary my-1"><?= $title; ?>
+        <h3 class="text-primary subjudul"><?= $title; ?>
             <span class="float-right">
-                <a href="" class="btn btn-warning btn-sm">Edit</a>
-                <a href="" class="btn btn-danger btn-sm">Hapus</a>
+                <a href="" class="btn btn-warning btn-sm"><i class="fas fa-pen mr-2"></i>Edit</a>
+                <a href="" class="btn btn-danger btn-sm"><i class="far fa-trash-alt mr-2"></i>Hapus</a>
             </span>
         </h3>
 
