@@ -57,9 +57,9 @@ echo $this->section('content');
                     </tbody>
                     <tbody>
                         <tr>
-                            <td colspan="3" class="text-right pb-0">
-                                <button type="button" class="btn btn-danger btn-sm mr-2" data-dismiss="modal">Tutup</button>
-                                <button type="button" class="btn btn-success btn-sm btn-add mr-2">Tambah</button>
+                            <td colspan="3" class="text-end pb-0">
+                                <button type="button" class="btn btn-danger btn-sm me-2" data-dismiss="modal">Tutup</button>
+                                <button type="button" class="btn btn-success btn-sm btn-add me-2">Tambah</button>
                                 <button type="submit" disabled class="btn btn-primary btn-sm btn-ins">Simpan</button>
                             </td>
                         </tr>

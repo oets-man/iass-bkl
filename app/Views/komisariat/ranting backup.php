@@ -58,8 +58,8 @@ echo $this->section('content');
                     <tbody class="" style="display: none;">
                         <tr>
                             <td colspan="3" class="text-right">
-                                <button type="button" class="btn btn-danger btn-sm btn-add mr-2" data-dismiss="modal">Tutup</button>
-                                <button type="button" class="btn btn-success btn-sm btn-add mr-2">Tambah</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-add me-2" data-dismiss="modal">Tutup</button>
+                                <button type="button" class="btn btn-success btn-sm btn-add me-2">Tambah</button>
                                 <button type="submit" class="btn btn-primary btn-sm btn-ins">Simpan</button>
                             </td>
                         </tr>
