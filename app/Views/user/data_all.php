@@ -5,7 +5,7 @@
 
 <!-- DataTales Example -->
 
-<div class="card-header py-3">
+<div class="card-header py-2 px-4 mb-4">
     <h3 class="text-primary subjudul">Data User
         <span class="float-end">
             <a href="<?= site_url('auth/registrasi'); ?>" type="button" class="btn btn-sm btn-primary">

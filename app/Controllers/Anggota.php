@@ -43,7 +43,7 @@ class Anggota extends BaseController
 			if (!$find) {
 				session()->setFlashData('errors', [
 					'Akses dibatasi.',
-					"Tetap menampilkan komisarat $komisariat."
+					"Anda hanya memiliki akses ke komisarat $komisariat."
 				]);
 				return redirect()->back();
 			}

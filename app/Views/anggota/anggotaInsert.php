@@ -12,7 +12,7 @@ echo form_open('anggota/insert');
 ?>
 
 
-<div class="card-header mb-4">
+<div class="card-header py-2 px-4 mb-4">
     <h3 class="text-primary subjudul"><?= $title; ?> Komisariat <?= session('urlKomisariat'); ?></h3>
 </div>
 <div class="card-body">

@@ -8,8 +8,13 @@
 
 <!-- DataTales Example -->
 <!-- <div class="card shadow mx-auto" style="max-width: 720px; min-width: 300px;"> -->
-<div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
+<div class="card-header py-2 px-4 mb-4">
+    <h3 class="text-primary subjudul">Data User
+        <span class="float-end">
+            <a href="" class="btn btn-warning btn-sm disabled"><i class="fas fa-pen me-2"></i>Edit</a>
+            <a href="" class="btn btn-danger btn-sm disabled"><i class="far fa-trash-alt me-2"></i>Hapus</a>
+        </span>
+    </h3>
 </div>
 <div class="row no-gutters">
     <div class="col-md-4">

@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 
-<div class="card-header py-3">
+<div class="card-header py-2 px-4 mb-4">
     <h3 class="text-primary subjudul">Data Anggota IASS Wilayah Bangkalan
 </div>
 <div class="card-body">
@@ -12,12 +12,15 @@
         <?php
         foreach ($komisariat as $kom) : ?>
             <div class="col-xl-3 col-md-6">
-                <div class="card shadow py-2">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="my-0" style="font-variant: small-caps;">
+                            <a href="<?= site_url('anggota/komisariat/') . $kom->komisariat; ?>"><?= $kom->komisariat; ?></a>
+                        </h6>
+                    </div>
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col me-2">
-                                <div class="text-primary mb-2" style="font-variant: small-caps;"><?= $kom->komisariat; ?>
-                                </div>
                                 <table class="table">
                                     <?php
                                     $komis = $kom->komisariat;
@@ -61,12 +64,15 @@
 
         <!--START TOTAL -->
         <div class="col-xl-3 col-md-6">
-            <div class="card shadow py-2">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h6 class="my-0" style="font-variant: small-caps;">
+                        Total
+                    </h6>
+                </div>
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col me-2">
-                            <div class="text-primary mb-2" style="font-variant: small-caps;">Total
-                            </div>
                             <table class="table">
                                 <tbody>
                                     <?php

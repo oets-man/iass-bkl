@@ -35,6 +35,7 @@
             font-weight: lighter;
             margin-top: 0;
             margin-bottom: 0;
+
         }
 
         .table> :not(caption)>*>* {
@@ -131,7 +132,7 @@
 
                         <li class="nav-item">
                             <!-- <div class="nav-link"> -->
-                            <a href="javascript:history.back()" class="btn btn-primary btn-sm"><i class="fas fa-share fa-flip-horizontal"></i><span class="ms-1 d-none d-lg-inline"> Kembali</span></a>
+                            <a href="javascript:history.back()" class="btn btn-sm btn-outline-success"><i class="fas fa-share fa-flip-horizontal"></i><span class="ms-1 d-none d-lg-inline"> Kembali</span></a>
                             <!-- </div> -->
                         </li>
 
@@ -152,7 +153,7 @@
                 </div>
             </nav>
 
-            <div class="main-content container-fluid">
+            <div class="main-content container-fluid pt-0">
                 <!-- <div class="page-title">
                     <h3>Dashboard</h3>
                     <p class="text-subtitle text-muted">A good dashboard to display your statistics</p>
@@ -208,12 +209,15 @@
             </footer> -->
         </div>
     </div>
-    <script src="<?= base_url(); ?>/assets_voler/vendors/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
+    <!-- dropdown tak jalan tak jalan/conflik dengan app-->
+    <!-- <script src="<?= base_url(); ?>/assets_voler/vendors/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script> -->
+
     <script src="<?= base_url(); ?>/assets_voler/js/feather-icons/feather.min.js"></script>
     <script src="<?= base_url(); ?>/assets_voler/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="<?= base_url(); ?>/assets_voler/js/app.js"></script>
 
+    <script src="<?= base_url(); ?>/assets_voler/js/app.js"></script>
     <script src="<?= base_url(); ?>/assets_voler/js/main.js"></script>
+
 
     <!-- datatables -->
     <script src="<?= base_url(); ?>/assets_voler/vendors/datatables/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>

@@ -16,7 +16,7 @@ session()->set($sessData);
 
 <!-- DataTales Example -->
 
-<div class="card-header py-3">
+<div class="card-header py-2 px-4 mb-4">
     <h3 class="text-primary subjudul">Daftar Anggota
         <?php
         if ($getKomisariat) : ?>

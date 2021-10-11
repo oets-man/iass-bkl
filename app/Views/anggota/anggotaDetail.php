@@ -5,11 +5,11 @@
 // d($anggota); 
 ?>
 
-<div class="card-header">
+<div class="card-header py-2 px-4 mb-4">
     <h3 class="text-primary subjudul"><?= $title; ?>
         <span class="float-end">
-            <a href="" class="btn btn-warning btn-sm"><i class="fas fa-pen me-2"></i>Edit</a>
-            <a href="" class="btn btn-danger btn-sm"><i class="far fa-trash-alt me-2"></i>Hapus</a>
+            <a href="" class="btn btn-warning btn-sm disabled"><i class="fas fa-pen me-2"></i>Edit</a>
+            <a href="" class="btn btn-danger btn-sm disabled"><i class="far fa-trash-alt me-2"></i>Hapus</a>
         </span>
     </h3>
 

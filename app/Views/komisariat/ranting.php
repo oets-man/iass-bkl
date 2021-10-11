@@ -21,14 +21,14 @@ echo $this->section('content');
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="m-0 text-primary">Daftar RANTING<br>Komisariat <?= strtoupper($komisariat); ?></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body pb-0">
                 <?php echo form_open('komisariat/insertRanting', ['class' => 'formInsertRanting']);
                 ?>
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -56,9 +56,9 @@ echo $this->section('content');
                     <tbody class="form-add" style="display: none;">
                     </tbody>
                     <tbody>
-                        <tr>
-                            <td colspan="3" class="text-end pb-0">
-                                <button type="button" class="btn btn-danger btn-sm me-2" data-dismiss="modal">Tutup</button>
+                        <tr class="text-end pb-0">
+                            <td colspan="3">
+                                <button type="button" class="btn btn-danger btn-sm me-2" data-bs-dismiss="modal">Tutup</button>
                                 <button type="button" class="btn btn-success btn-sm btn-add me-2">Tambah</button>
                                 <button type="submit" disabled class="btn btn-primary btn-sm btn-ins">Simpan</button>
                             </td>
