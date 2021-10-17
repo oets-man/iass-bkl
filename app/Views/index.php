@@ -89,7 +89,7 @@
 
                                     <tr>
                                         <td class="fst-italic">Gand Total</td>
-                                        <td class="text-end fw-bold"><?= $jumlah; ?></td>
+                                        <td class="text-end fw-bold"><?= number_format($jumlah, 0, ",", "."); ?></td>
                                     </tr>
                                 </tbody>
                             </table>

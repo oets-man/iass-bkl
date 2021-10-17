@@ -14,5 +14,5 @@ class UserModel extends Model
 	protected $table                = 'user';
 	protected $primaryKey           = 'id';
 	protected $protectFields        = true;
-	protected $allowedFields        = ['email', 'nama', 'password', 'avatar', 'jabatan', 'role_id', 'is_active', 'is_reset'];
+	protected $allowedFields        = ['akun', 'nama', 'password', 'avatar', 'jabatan', 'role_id', 'is_active', 'is_reset'];
 }

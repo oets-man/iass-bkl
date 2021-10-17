@@ -43,9 +43,9 @@ class Validation
 	//--------------------------------------------------------------------
 	// app\Validation\MyRules.php
 	public $login = [
-		'email' => [
+		'akun' => [
 			'rules' => 'required',
-			'label' => 'Email'
+			'label' => 'Akun atau Username'
 		],
 		'password' => [
 			'rules' => 'required',
@@ -53,29 +53,33 @@ class Validation
 		],
 	];
 	public $reset = [
-		'email' => [
+		'akun' => [
 			'rules' => 'required',
-			'label' => 'Email'
+			'label' => 'Akun'
+		],
+		'passwordO' => [
+			'rules' => 'required',
+			'label' => 'Password lama'
 		],
 		'password' => [
-			'rules' => 'required',
-			'label' => 'Password'
-		],
-		'passwordN' => [
 			'rules' => 'required|min_length[6]',
 			'label' => 'Password baru'
 		],
 		'passwordR' => [
-			'rules' => 'required|matches[passwordN]',
+			'rules' => 'required|matches[password]',
 			'label' => 'Konfirmasi password'
 		],
 	];
 	public $registrasi = [
-		'email' => [
-			'rules' => 'required|valid_email|is_unique[user.email]',
+		// 'email' => [
+		// 	'rules' => 'required|valid_email|is_unique[user.email]',
+		// ],
+		'akun' => [
+			'rules' => 'trim|required|is_unique[user.akun]|min_length[5]|alpha_dash',
+			'label' => 'Akun'
 		],
 		'nama' => [
-			'rules' => 'required|min_length[5]|valid_name',
+			'rules' => 'trim|required|min_length[5]|valid_name',
 			'label' => 'Nama',
 			'errors' => ['valid_name' => 'Terdapat karakter yang tidak didukung pada input {field}.']
 		],
@@ -87,7 +91,7 @@ class Validation
 			'label' => 'Konfirmasi password'
 		],
 		'jabatan' => [
-			'rules' => 'required'
+			'rules' => 'trim|required'
 		],
 		'role_id' => [
 			'rules' => 'required'

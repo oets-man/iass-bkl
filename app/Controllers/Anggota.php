@@ -43,7 +43,7 @@ class Anggota extends BaseController
 			if (!$find) {
 				session()->setFlashData('errors', [
 					'Akses dibatasi.',
-					"Anda hanya memiliki akses ke komisarat $komisariat."
+					"Anda hanya memiliki akses ke Komisarat $komisariat."
 				]);
 				return redirect()->back();
 			}
@@ -65,7 +65,7 @@ class Anggota extends BaseController
 			$data = [];
 			$no = $request->getPost("start");
 			foreach ($lists as $list) {
-				$tombol = "<a href=" . base_url('anggota/detail') . "/" . $list->id . " type=\"button\" class=\"btn btn-info btn-sm\" \"><i class=\"fas fa-info-circle\"></i></a>";
+				$tombol = "<a href=" . base_url('anggota/detail') . "/" . $list->id . " type=\"button\" class=\"btn btn-outline-primary btn-sm\" \"><i class=\"fas fa-info-circle\"></i></a>";
 				$no++;
 				$row = [];
 				$row[] = $tombol;

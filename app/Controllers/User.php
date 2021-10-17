@@ -25,7 +25,7 @@ class User extends BaseController
 		} else {
 			$data = [
 				'title' => 'Atur User ' . $id,
-				'users' => $this->userModel->where('email', $id)->get()
+				'users' => $this->userModel->where('akun', $id)->get()
 			];
 			return view('user\data_one', $data);
 		}
@@ -36,12 +36,12 @@ class User extends BaseController
 		echo "<h2>Selamat Datang $param</h2>";
 		echo "<h4>Halaman ini masih dalam pengembangan</h4>";
 		// echo '<br><br><br>';
-		// var_dump($this->userModel->where('email', 'oets@gmail.com')->get());
+		// var_dump($this->userModel->where('akun', 'oets@gmail.com')->get());
 	}
-	public function activate($email)
+	public function activate($akun)
 	{
 		$userAuth = new \App\Models\AuthModel();
-		$userAuth->userActivate($email);
-		return redirect()->to("user/manage/$email");
+		$userAuth->userActivate($akun);
+		return redirect()->to("user/manage/$akun");
 	}
 }

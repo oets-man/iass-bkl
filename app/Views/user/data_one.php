@@ -26,8 +26,8 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td>Email</td>
-                        <td><?= $users->getRow()->email; ?></td>
+                        <td>akun</td>
+                        <td><?= $users->getRow()->akun; ?></td>
                     </tr>
                     <tr>
                         <td>Role</td>
@@ -55,7 +55,7 @@
                                 </label>
                             </div>
                         </td>
-                        <td><a href="<?= base_url(); ?>/user/activate/<?= $users->getRow()->email; ?>" class="<?= $btnClass; ?>"><?= $tombol; ?></a> </td>
+                        <td><a href="<?= base_url(); ?>/user/activate/<?= $users->getRow()->akun; ?>" class="<?= $btnClass; ?>"><?= $tombol; ?></a> </td>
                     </tr>
                 </tbody>
             </table>

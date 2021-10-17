@@ -37,18 +37,18 @@ class AuthModel extends Model
 		if (is_null($key)) {
 			$builder = $this->tabelUser;
 		} else {
-			$builder = $this->tabelUser->where('email', $key);
+			$builder = $this->tabelUser->where('akun', $key);
 		}
 		$query = $builder->get();
 		return $query;
 	}
-	public function userActivate($email)
+	public function userActivate($akun)
 	{
-		$cek = $this->tabelUser->where('email', $email)->where('is_active', 1)->countAllResults();
+		$cek = $this->tabelUser->where('akun', $akun)->where('is_active', 1)->countAllResults();
 		if ($cek > 0) {
-			return $this->tabelUser->set('is_active', 0)->where('email', $email)->update();
+			return $this->tabelUser->set('is_active', 0)->where('akun', $akun)->update();
 		} else {
-			return $this->tabelUser->set('is_active', 1)->where('email', $email)->update();
+			return $this->tabelUser->set('is_active', 1)->where('akun', $akun)->update();
 		}
 	}
 }

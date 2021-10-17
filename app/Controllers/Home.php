@@ -24,4 +24,8 @@ class Home extends BaseController
 	{
 		return view('layout/voler');
 	}
+	public function voler_auth()
+	{
+		return view('layout/voler_auth');
+	}
 }

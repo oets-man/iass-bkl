@@ -201,7 +201,7 @@ echo form_open('anggota/insert');
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Jenjang Terakhir</label>
                         <div class="col-sm">
-                            <select name="pps_tingkat" class="form-control" value="<?= old('pps_tingkat'); ?>">
+                            <select name="pps_tingkat" class="form-select" value="<?= old('pps_tingkat'); ?>">
                                 <option value="<?= null; ?>">Pendidikan Akhir PPS</option>
                                 <?php foreach ($pps_tingkat as $r) : ?>
                                     <option value="<?= $r->tingkat; ?>"><?= $r->tingkat; ?></option>
@@ -213,7 +213,7 @@ echo form_open('anggota/insert');
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Kelas Terakhir</label>
                         <div class="col-sm">
-                            <select name="pps_kelas" class="form-control" value="<?= old('pps_kelas'); ?>">
+                            <select name="pps_kelas" class="form-select" value="<?= old('pps_kelas'); ?>">
                                 <option value="<?= null; ?>">Kelas Akhir PPS</option>
                                 <?php foreach ($pps_kelas as $r) : ?>
                                     <option value="<?= $r->kelas; ?>"><?= $r->kelas; ?></option>
@@ -248,7 +248,7 @@ echo form_open('anggota/insert');
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Pendidikan Formal</label>
                         <div class="col-sm">
-                            <select name="formal_tingkat" class="form-control" value="<?= old('formal_tingkat'); ?>">
+                            <select name="formal_tingkat" class="form-select" value="<?= old('formal_tingkat'); ?>">
                                 <option value="<?= null; ?>">Pilih Pendidikan Formal</option>
                                 <?php foreach ($formal_tingkat as $r) : ?>
                                     <option value="<?= $r->tingkat; ?>"><?= $r->tingkat; ?></option>

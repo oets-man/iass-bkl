@@ -20,7 +20,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Email</th>
+                <th>akun</th>
                 <th>Aktif</th>
                 <th>Role</th>
             </tr>
@@ -37,7 +37,7 @@
                 <tr>
                     <td><?= $key + 1; ?></td>
                     <td><?= $row->nama; ?></td>
-                    <td><a href="manage/<?= $row->email; ?>"><?= $row->email; ?></a> </td>
+                    <td><a href="manage/<?= $row->akun; ?>"><?= $row->akun; ?></a> </td>
                     <td <?= $class; ?>><?= $aktif; ?></td>
                     <td><?= $row->role_id; ?></td>
                 </tr>

@@ -13,11 +13,17 @@ class Auth extends BaseController
 		$this->session = session();
 	}
 
+	function phpAlert($msg)
+	{
+		echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+	}
+
 	public function registrasi()
 	{
-		$this->isLoggedIn();
+		$this->isLoggedIn(); //redirect tak jalan
 
 		if ($this->request->getPost()) {
+
 			$data = $this->request->getPost();
 			$this->validation->run($data, 'registrasi');
 			$errors = $this->validation->getErrors();
@@ -25,20 +31,29 @@ class Auth extends BaseController
 			if (!$errors) {
 				$userEntity = new \App\Entities\UserEntity();
 				$userModel = new \App\Models\UserModel();
-
+				$data = array_filter($data);
 				$userEntity->fill($data);
-				$userModel->insert($userEntity);
-				$this->session->setFlashdata('success', 'Registrasi Berhasil! Silakan Login');
-				return redirect()->to(base_url('auth/login'));
+
+				$insert = $userModel->insert($userEntity);
+				if ($insert) {
+					$this->session->setFlashdata('success', 'Registrasi berhasil. Silakan hubungi Ust Tijani Fattah untuk aktivasi!');
+					return redirect()->to(base_url('auth/login'));
+				} else { // tak jalan. PR
+					$this->session->setFlashData('errors', ['Registrasi gagal. Cek ulang data Anda.']);
+					redirect()->back()->withInput();
+				}
 			}
 
 			$this->session->setFlashdata('errors', $errors);
+			redirect()->back()->withInput();
 		}
 		//kirim list role
 		$authModel = new \App\Models\AuthModel();
 		$data = [
 			'role' => $authModel->roleGet(),
-			'title' => 'Registrasi'
+			'title' => 'Registrasi',
+			'heading'	=> 'Daftar',
+			'caption' => 'Silakan isi form berikut untuk mendaftar',
 		];
 		return view('auth/registrasi', $data);
 	}
@@ -50,6 +65,7 @@ class Auth extends BaseController
 				'Anda sudah masuk. Silakan <a href="logout">keluar</a> terlebih dahulu untuk mengakses halaman ini.',
 				'Atau Anda bisa kembali ke halaman <a href="javascript:history.back()">sebelumnya</a> atau menuju ke <a href="' . site_url()  . '">Beranda</a>.'
 			]);
+			// return true;
 			return redirect()->back();
 		}
 	}
@@ -65,11 +81,11 @@ class Auth extends BaseController
 			$errors = $this->validation->getErrors();
 
 			if (!$errors) {
-				$email = $this->request->getPost('email');
+				$akun = $this->request->getPost('akun');
 				$password = $this->request->getPost('password');
 
 				$userModel = new \App\Models\UserModel();
-				$user = $userModel->where('email', $email)->first();
+				$user = $userModel->where('akun', $akun)->first();
 
 				if ($user) {
 					//cek password
@@ -82,7 +98,7 @@ class Auth extends BaseController
 								$authModel = new \App\Models\AuthModel();
 								$role = $authModel->roleGet($user->role_id)->getRow();
 								$sessData = [
-									'user_email' 	=> $user->email,		//parameter authFilter
+									'user_akun' 	=> $user->akun,		//parameter authFilter
 									'user_nama' 	=> $user->nama,
 									'user_jabatan' 	=> $user->jabatan,
 									'user_avatar' 	=> $user->avatar,
@@ -97,8 +113,10 @@ class Auth extends BaseController
 							} else { // harus reset
 								$this->session->setFlashData('errors', ['Kata sandi perlu diperbaharui.']);
 								$data = [
-									'title' => 'Reset Password',
-									'email' => $email
+									'title' 	=> 'Reset Password',
+									'akun' 		=> $akun,
+									'heading'	=> 'Ganti Password',
+									'caption' 	=> 'Isikan password lama dan baru.',
 								];
 								return view('auth/reset', $data);
 							}
@@ -117,6 +135,8 @@ class Auth extends BaseController
 		}
 		$data = [
 			'title' => 'Login',
+			'heading'	=> 'Login',
+			'caption' => 'Silakan masukkan akun dan password!',
 		];
 		return view('auth/login', $data);
 	}
@@ -127,8 +147,16 @@ class Auth extends BaseController
 		return redirect()->to(base_url('auth/login'));
 	}
 
-	public function reset($email = null)
+	public function reset($akun = null)
 	{
+		$dataview = [
+			'title' => 'Ganti Password',
+			'akun' => $akun ?: "",
+			'heading'	=> 'Ganti Password',
+			'caption' => 'Isikan password lama dan baru.',
+		];
+
+
 		if ($this->request->getPost()) {
 			$data = $this->request->getPost();
 			$this->validation->run($data, 'reset');
@@ -136,26 +164,28 @@ class Auth extends BaseController
 
 			// cek validasi
 			if (!$errors) {
-				$email = $this->request->getPost('email');
+				$akun = $this->request->getPost('akun');
 				$userModel = new \App\Models\UserModel();
-				$user = $userModel->where('email', $email)->first();
+				$user = $userModel->where('akun', $akun)->first();
 				//cek user
 				if ($user) {
 					//cek password
+					$passwordO = $this->request->getPost('passwordO');
 					$password = $this->request->getPost('password');
-					$passwordN = $this->request->getPost('passwordN');
-					$passwordHash = password_hash($passwordN, PASSWORD_BCRYPT);
 
-					if ((password_verify($password, $user->password))) {
+					if ((password_verify($passwordO, $user->password))) {
 						//lakukan update
+						$userEntity = new \App\Entities\UserEntity();
+						$userEntity->password = $password;
 						$userModel
-							->set('password', $passwordHash)
+							->set('password', $userEntity->password)
 							->set('is_reset', 0)
-							->where('email', $email)
+							->where('akun', $akun)
 							->update();
+
 						$this->session->setFlashData('success', 'Ganti kata sandi berhasil. Silakan login.');
 						$this->logout();
-						return view('auth/login', ['title' => 'Login']);
+						return view('auth/login', $dataview);
 					} else {
 						//password salah
 						$this->session->setFlashData('errors', ['Kata sandi salah.']);
@@ -169,10 +199,7 @@ class Auth extends BaseController
 				$this->session->setFlashdata('errors', $errors);
 			}
 		}
-		$data = [
-			'title' => 'Ganti Password',
-			'email' => $email
-		];
-		return view('auth/reset', $data);
+
+		return view('auth/reset', $dataview);
 	}
 }

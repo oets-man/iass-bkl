@@ -51,19 +51,20 @@
 <body>
     <!-- panggil session auth-->
     <?php
-    $email      = session('user_email');
+    $akun      = session('user_akun');
     $nama       = session('user_nama');
     $role_id    = session('role_id');
     $role_level = session('role_level'); ?>
 
     <div id="app">
         <div id="sidebar" class='active'>
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <img src="<?= base_url(); ?>/assets_voler/images/logo.svg" alt="" srcset="">
+            <div class="sidebar-wrapper active bg-light">
+                <div class="sidebar-header text-center pt-4">
+                    <!-- <img class="" src="<?= base_url(); ?>/assets_voler/images/logo.svg" alt="" srcset=""> -->
+                    <img class="" src="<?= base_url(); ?>/assets_voler/images/logo.png" alt="" srcset="" style="height: 100px;">
                 </div>
                 <div class="sidebar-menu">
-                    <ul class="menu">
+                    <ul class="menu mt-0">
 
                         <!-- menu -->
                         <?php
@@ -120,7 +121,7 @@
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
-        <div id="main">
+        <div id="main" class="">
             <nav class="navbar navbar-header navbar-expand navbar-light">
                 <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
                 <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,7 +145,7 @@
                                 <div class="d-none d-md-block d-lg-inline-block text-primary"><?= $nama; ?></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="<?= site_url('user/profile') . '/' . $email; ?>"><i data-feather="user"></i> Profil</a>
+                                <a class="dropdown-item" href="<?= site_url('user/profile') . '/' . $akun; ?>"><i data-feather="user"></i> Profil</a>
                                 <!-- <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="<?= site_url('auth/logout'); ?>"><i data-feather="log-out"></i> Logout</a>
                             </div>
@@ -165,8 +166,8 @@
                 $errors = $session->getFlashdata('errors');
                 $success = $session->getFlashdata('success');
                 if ($errors != null) : ?>
-                    <div class="alert alert-warning alert-dismissible fade show text-danger" role="alert">
-                        <strong>Terjadi Kesalahan!</strong>
+                    <div class="alert alert-light-warning color-danger alert-dismissible fade show" role="alert">
+                        <h5 class="alert-heading">Terjadi Kesalahan!</h5>
                         <ul class="my-0">
                             <?php foreach ($errors as $err) : ?>
                                 <li><?= $err ?></li>
@@ -177,8 +178,8 @@
                     unset($_SESSION['errors']);
                 endif;
                 if ($success != null) : ?>
-                    <div class="alert alert-success alert-dismissible fade show text-primary text-center" role="alert">
-                        <strong><?= $success; ?></strong>
+                    <div class="alert alert-light-success color-primary alert-dismissible fade show text-center" role="alert">
+                        <?= $success; ?>
                     </div>
                 <?php
                     unset($_SESSION['success']);
@@ -208,6 +209,7 @@
                 </div>
             </footer> -->
         </div>
+
     </div>
     <!-- dropdown tak jalan tak jalan/conflik dengan app-->
     <!-- <script src="<?= base_url(); ?>/assets_voler/vendors/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script> -->
