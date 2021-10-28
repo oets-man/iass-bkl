@@ -192,14 +192,30 @@ class Anggota extends BaseController
 		}
 	}
 
+	public function delete()
+	{
+		if ($this->request->isAJAX()) {
+			$id = $this->request->getPost('id');
+			$this->db->table('anggota')->where('id', $id)->delete();
+			// echo json_encode(['status' => (bool) true]);
+			$respon = ['status' => true];
+			// return true;
+		} else {
+			$respon = ['status' => false];
+		}
+		echo json_encode($respon);
+		// echo json_encode(['status' => (bool) false]);
+	}
 
 	function Detail($id)
 	{
 		$anggotaModel = new \App\Models\AnggotaModel();
 		$anggota = $anggotaModel->getAnggota($id)->getRow();
+		$status = $this->db->table('status_view')->where('id_anggota', $id)->get()->getResult();
 		$data = [
 			'title'			=> 'Detail Anggota',
 			'anggota'		=> $anggota,
+			'status'		=> $status
 		];
 
 		return view('anggota/anggotaDetail', $data);

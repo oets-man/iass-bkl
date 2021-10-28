@@ -49,11 +49,13 @@ class Auth extends BaseController
 		}
 		//kirim list role
 		$authModel = new \App\Models\AuthModel();
+		$jataban = $this->db->table('list_jabatan')->get()->getResult();
 		$data = [
-			'role' => $authModel->roleGet(),
-			'title' => 'Registrasi',
+			'role'		=> $authModel->roleGet()->getResult(),
+			'title'		=> 'Registrasi',
 			'heading'	=> 'Daftar',
-			'caption' => 'Silakan isi form berikut untuk mendaftar',
+			'caption'	=> 'Silakan isi form berikut untuk mendaftar',
+			'jataban'	=> $jataban
 		];
 		return view('auth/registrasi', $data);
 	}

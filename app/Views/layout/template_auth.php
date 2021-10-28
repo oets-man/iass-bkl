@@ -17,6 +17,7 @@
     <link href="<?= base_url(); ?>/assets_voler/images/favicon-iass.svg" type="image/x-icon" rel="shortcut icon">
     <link href="<?= base_url(); ?>/assets_voler/css/app.css" rel="stylesheet">
     <link href="<?= base_url(); ?>/assets_voler/vendors/fontawesome-free/css/all.min.css" type="text/css" rel="stylesheet">
+    <script src="<?= base_url(); ?>/assets_voler/vendors/jquery/jquery.min.js"></script>
 
 
 </head>
@@ -71,6 +72,15 @@
     <script src="<?= base_url(); ?>/assets_voler/js/feather-icons/feather.min.js"></script>
     <script src="<?= base_url(); ?>/assets_voler/js/app.js"></script>
     <!-- <script src="<?= base_url(); ?>/assets_voler/js/main.js"></script> -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var islog = <?= session('isLoggedIn'); ?>;
+            if (islog) {
+                $('.cek-login').attr('disabled', true);
+            };
+        });
+    </script>
 </body>
 
 </html>

@@ -28,6 +28,8 @@
     <?= $this->renderSection('header') ?>
 
     <script src="<?= base_url(); ?>/assets_voler/vendors/jquery/jquery.min.js"></script>
+    <script src="<?= base_url(); ?>/assets_voler/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+
 
 
     <style>

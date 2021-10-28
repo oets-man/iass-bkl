@@ -16,7 +16,7 @@ echo $this->section('content');
     });
 </script>
 
-<div class="modal fade" data-backdrop="static" id="modalRanting" tabindex="-1" role="dialog" aria-labelledby="modalRantingLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="modalRanting" tabindex="-1" role="dialog" aria-labelledby="modalRantingLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -26,7 +26,7 @@ echo $this->section('content');
                 </button>
             </div>
             <div class="modal-body pb-0">
-                <?php echo form_open('komisariat/insertRanting', ['class' => 'formInsertRanting']);
+                <?php echo form_open('modal/insertRanting', ['class' => 'formInsertRanting']);
                 ?>
                 <table class="table table-striped">
                     <thead>
@@ -148,7 +148,7 @@ echo $this->section('content');
         });
         $.ajax({
             type: "post",
-            url: "<?= site_url('komisariat/delRanting'); ?>",
+            url: "<?= site_url('modal/delRanting'); ?>",
             data: {
                 id: id,
             },

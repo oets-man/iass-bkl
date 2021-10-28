@@ -67,7 +67,8 @@
             <div class="card shadow">
                 <div class="card-header">
                     <h6 class="my-0" style="font-variant: small-caps;">
-                        Total
+                        <a href="<?= site_url('anggota/index') ?>">Total</a>
+                        <!-- Total -->
                     </h6>
                 </div>
                 <div class="card-body">

@@ -21,16 +21,23 @@
 
     <div class="col-md-6 col-12">
         <div class="form-group">
+            <!-- <label for="jabatan">Jabatan</label>
+            <input required name="jabatan" type="text" class="form-control" id="jabatan" placeholder="Jabatan di IASS" value="<?= old('jabatan'); ?>"> -->
             <label for="jabatan">Jabatan</label>
-            <input required name="jabatan" type="text" class="form-control" id="jabatan" placeholder="Jabatan di IASS" value="<?= old('jabatan'); ?>">
+            <select required name="jabatan" class="form-select" id="jabatan" value="<?= old('jabatan'); ?>" title="Jabatan di IASS">
+                <option value="">-- Pilih Jabatan --</option>
+                <?php foreach ($jataban as $key => $row) : ?>
+                    <option value="<?= $row->jabatan; ?>"><?= $row->jabatan; ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
     </div>
     <div class="col-md-6 col-12">
         <div class="form-group">
             <label for="role_id">Role</label>
             <select required name="role_id" class="form-select" id="role_id" value="<?= old('role_id'); ?>" title="Tentukan komisariat Anda!">
-                <option value="">Pilih role</option>
-                <?php foreach ($role->getResult() as $key => $row) : ?>
+                <option value="">-- Pilih Role --</option>
+                <?php foreach ($role as $key => $row) : ?>
                     <option value="<?= $row->id; ?>"><?= $row->id; ?></option>
                 <?php endforeach; ?>
             </select>
@@ -50,7 +57,7 @@
     </div>
 
     <div class="col">
-        <button type="submit" class="btn btn-primary btn-block">Daftar</button>
+        <button type="submit" class="btn btn-primary btn-block cek-login">Daftar</button>
         <!-- <button class="btn btn-primary float-end">Submit</button> -->
     </div>
 </div>
@@ -64,4 +71,5 @@
         <a class="small" href="<?= base_url('auth/login'); ?>">Sudah punya akun? Login!</a>
     </div>
 </div>
+
 <?= $this->endSection() ?>

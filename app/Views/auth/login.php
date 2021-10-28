@@ -28,7 +28,7 @@
     </div>
 
     <div class="mt-4">
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" class="btn btn-primary btn-block cek-login">Login</button>
         <!-- <button class="btn btn-primary float-end">Submit</button> -->
     </div>
 </div>

@@ -25,7 +25,7 @@ echo form_open('anggota/insert');
                     <h5 class="text-primary my-0">Keanggotaan
                         <span class="float-end">
                             <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalRanting">Data Ranting</button> -->
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('komisariat/ranting') . '/' . session('urlKomisariat'); ?>">Daftar Ranting</a>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('modal/ranting') . '/' . session('urlKomisariat'); ?>">Daftar Ranting</a>
                         </span>
                     </h5>
                 </div>
